@@ -1,7 +1,12 @@
 /**
  * @jest-environment jsdom
  */
-it('Simple test', () => {
-  expect(true).toBe(true)
-  expect(1).toBe(1)
-})
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import Page from "./page";
+
+test("it displays correct heading", async () => {
+  render(<Page />);
+
+  expect(screen.getByRole('heading')).toHaveTextContent('Welcome to Scorecard!')
+});
