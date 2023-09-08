@@ -5,7 +5,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Navigation from "./navigation";
 
-test("it displays heading", async () => {
+test("it renders a link back home", async () => {
   render(<Navigation />);
 
   expect(screen.getByText('Scorecard').closest('a')).toHaveAttribute('href', '/')
