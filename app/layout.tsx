@@ -16,10 +16,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className='h-full'>
+      <body className={inter.className + ' h-full'}>
         <Navigation />
-        <main>
+        <main className='h-full pt-12 mx-auto max-w-3xl bg-golfing bg-no-repeat bg-[-4rem] bg-cover'>
           {children}
         </main>  
       </body>
