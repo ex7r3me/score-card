@@ -4,11 +4,11 @@ import MainMenu from "../main-menu/main-menu";
 export default function Navigation() {
   return (
     <div>
-      <nav role="navigation" className="h-12 bg-primary-gray flex items-center align-middle">
+      <nav role="navigation" className="flex items-center h-12 align-middle bg-primary-gray">
       <MainMenu />
         <Link
           href="/"
-          className="text-base font-bold uppercase text-beige inline-block m-auto"
+          className="inline-block m-auto text-base font-bold uppercase text-beige"
         >
           Scorecard
         </Link>
