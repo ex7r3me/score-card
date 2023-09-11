@@ -4,7 +4,7 @@ import MainMenu from "../main-menu/main-menu";
 export default function Navigation() {
   return (
     <div>
-      <nav role="navigation" className="flex items-center h-12 align-middle bg-primary-gray">
+      <nav role="navigation" className="flex items-center align-middle h-14 bg-primary-gray">
       <MainMenu />
         <Link
           href="/"
