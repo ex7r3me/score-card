@@ -2,6 +2,7 @@
 'use client'
 import { Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid'
+import Link from 'next/link';
 
 export default function MainMenu() {
   return (
@@ -23,36 +24,36 @@ export default function MainMenu() {
 
       <Menu.Items className="absolute left-0 z-10 w-56 bg-primary-gray">
         <Menu.Item>
-          <a
+          <Link
             className={`flex pl-3 items-center w-full px-2 py-2 text-sm text-white ui-active:bg-blue-500`}
             href="/"
           >
             Home
-          </a>
+          </Link>
         </Menu.Item>
         <Menu.Item >
-          <a
+          <Link
             className={`flex pl-3 items-center w-full px-2 py-2 text-sm  text-white ui-active:bg-blue-500`}
             href="/golf"
           >
             Golf
-          </a>
+          </Link>
         </Menu.Item>
         <Menu.Item>
-          <a
+          <Link
             className={`flex pl-3 items-center w-full px-2 py-2 text-sm text-white  ui-active:bg-blue-500`}
             href="/yahtzee"
           >
             Yahtzee
-          </a>
+          </Link>
         </Menu.Item>
         <Menu.Item >
-          <a
+          <Link
             className={`flex pl-3 items-center w-full px-2 py-2 text-sm text-white  ui-active:bg-blue-500`}
             href="/about"
           >
             About
-          </a>
+          </Link>
         </Menu.Item>
       </Menu.Items>
       </Transition>
