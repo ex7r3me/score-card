@@ -5,12 +5,12 @@ import { Menu } from '@headlessui/react'
 export default function MainMenu() {
   return (
     <Menu as="div" className="relative inline-block text-left" >
-      <Menu.Button>Menu</Menu.Button>
-      <Menu.Items className="absolute left-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+      <Menu.Button className="pl-5 text-white" >Menu</Menu.Button>
+      <Menu.Items className="absolute left-0 w-56 mt-2 origin-top-right bg-primary-gray ">
         <Menu.Item>
           {({ active }) => (
             <a
-              className={`flex items-center w-full px-2 py-2 text-sm rounded-md group ${active && 'bg-blue-500'}`}
+              className={`flex pl-5 items-center w-full px-2 py-2 text-sm text-white ${active && 'bg-blue-500'}`}
               href="/"
             >
               Home
@@ -20,7 +20,7 @@ export default function MainMenu() {
         <Menu.Item >
           {({ active }) => (
             <a
-              className={`flex items-center w-full px-2 py-2 text-sm rounded-md group ${active && 'bg-blue-500'}`}
+              className={`flex pl-5 items-center w-full px-2 py-2 text-sm  text-white ${active && 'bg-blue-500'}`}
               href="/golf"
             >
               Golf
@@ -30,7 +30,7 @@ export default function MainMenu() {
         <Menu.Item>
           {({ active }) => (
             <a
-              className={`flex items-center w-full px-2 py-2 text-sm rounded-md group ${active && 'bg-blue-500'}`}
+              className={`flex pl-5 items-center w-full px-2 py-2 text-sm text-white ${active && 'bg-blue-500'}`}
               href="/yahtzee"
             >
               Yahtzee
@@ -40,7 +40,7 @@ export default function MainMenu() {
         <Menu.Item >
           {({ active }) => (
             <a
-              className={`flex items-center w-full px-2 py-2 text-sm rounded-md group ${active && 'bg-blue-500'}`}
+              className={`flex pl-5 items-center w-full px-2 py-2 text-sm text-white ${active && 'bg-blue-500'}`}
               href="/about"
             >
               About
