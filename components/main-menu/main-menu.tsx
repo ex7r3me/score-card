@@ -1,13 +1,14 @@
-
-'use client'
-import { Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid'
-import Link from 'next/link';
+import { Menu, Transition } from '@headlessui/react'
 
-export default function MainMenu() {
+import Link from 'next/link';
+interface MainMenuProps {
+  onToggle: () => void;
+}
+export default function MainMenu({ onToggle }: MainMenuProps) {
   return (
-    <Menu as="div" className="absolute" >
-      <Menu.Button className="p-1 ml-3 text-white rounded-md bg-accent-gray">
+    <Menu as="div" className="absolute z-20"  >
+      <Menu.Button className="p-1 ml-3 text-white rounded-md bg-accent-gray" >
         {({ open }) => (
           open ? <XMarkIcon className="w-8 h-8" /> : <Bars3Icon className="w-8 h-8" />
         )}
@@ -22,40 +23,40 @@ export default function MainMenu() {
         leaveTo="transform scale-95 opacity-0"
       >
 
-      <Menu.Items className="absolute left-0 z-10 w-56 pt-5 pb-5 mt-1 bg-primary-gray">
-        <Menu.Item>
-          <Link
-            className={`flex pl-3 items-center w-full px-2 py-2 text-sm text-white ui-active:bg-blue-500`}
-            href="/"
-          >
-            Home
-          </Link>
-        </Menu.Item>
-        <Menu.Item >
-          <Link
-            className={`flex pl-3 items-center w-full px-2 py-2 text-sm  text-white ui-active:bg-blue-500`}
-            href="/golf"
-          >
-            Golf
-          </Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link
-            className={`flex pl-3 items-center w-full px-2 py-2 text-sm text-white  ui-active:bg-blue-500`}
-            href="/yahtzee"
-          >
-            Yahtzee
-          </Link>
-        </Menu.Item>
-        <Menu.Item >
-          <Link
-            className={`flex pl-3 items-center w-full px-2 py-2 text-sm text-white  ui-active:bg-blue-500`}
-            href="/about"
-          >
-            About
-          </Link>
-        </Menu.Item>
-      </Menu.Items>
+        <Menu.Items className="absolute top-0 left-0 z-10 w-56 pt-5 pb-5 mt-1 bg-primary-gray">
+          <Menu.Item >
+            <Link 
+              className={`flex pl-3 items-center w-full px-2 py-2 text-sm text-white ui-active:bg-blue-500`}
+              href="/"
+            >
+              Home
+            </Link>
+          </Menu.Item>
+          <Menu.Item >
+            <Link 
+              className={`flex pl-3 items-center w-full px-2 py-2 text-sm  text-white ui-active:bg-blue-500`}
+              href="/golf"
+            >
+              Miniature Golf
+            </Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link 
+              className={`flex pl-3 items-center w-full px-2 py-2 text-sm text-white  ui-active:bg-blue-500`}
+              href="/yahtzee"
+            >
+              Yahtzee
+            </Link>
+          </Menu.Item>
+          <Menu.Item >
+            <Link 
+              className={`flex pl-3 items-center w-full px-2 py-2 text-sm text-white  ui-active:bg-blue-500`}
+              href="/about"
+            >
+              About
+            </Link>
+          </Menu.Item>
+        </Menu.Items>
       </Transition>
     </Menu>
   )
