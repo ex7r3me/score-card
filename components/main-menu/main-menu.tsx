@@ -22,7 +22,7 @@ export default function MainMenu() {
         leaveTo="transform scale-95 opacity-0"
       >
 
-      <Menu.Items className="absolute left-0 z-10 w-56 bg-primary-gray">
+      <Menu.Items className="absolute left-0 z-10 w-56 pt-5 pb-5 mt-1 bg-primary-gray">
         <Menu.Item>
           <Link
             className={`flex pl-3 items-center w-full px-2 py-2 text-sm text-white ui-active:bg-blue-500`}
