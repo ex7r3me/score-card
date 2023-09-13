@@ -52,7 +52,7 @@ export default function Home() {
                 <Cell className="border-2 border-primary-gray" key={colIndex}>
                   <TableInput
                     value={score}
-                    onChange={(e) => handleScoreChange(rowIndex, colIndex, e.target.value, upperScores, setUpperScores)}
+                    onChange={(e) => handleScoreChange(rowIndex, colIndex, Number(e.target.value), upperScores, setUpperScores)}
                   />
                 </Cell>
               ))}
@@ -71,7 +71,7 @@ export default function Home() {
                 <Cell className="border-2 border-primary-gray" key={colIndex}>
                   <TableInput
                     value={score}
-                    onChange={(e) => handleScoreChange(rowIndex, colIndex, e.target.value, lowerScores, setLowerScores)}
+                    onChange={(e) => handleScoreChange(rowIndex, colIndex, Number(e.target.value), lowerScores, setLowerScores)}
                   />
                 </Cell>
               ))}
