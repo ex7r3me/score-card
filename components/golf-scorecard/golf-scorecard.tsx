@@ -30,7 +30,7 @@ export default function GolfScorecard() {
                 <Cell key={'h'+hole+'p'+c+'-score'} className='border-solid border-l-2 border-primary-gray'>
                   <TextField>
                     <Label hidden>player score for hole {hole}</Label>
-                    <Input className='bg-transparent w-16 px-2 text-center text-dark-green font-bold' />
+                    <Input inputMode='numeric' className='bg-transparent w-16 px-2 text-center text-dark-green font-bold' />
                   </TextField>
                 </Cell>
               ))}
