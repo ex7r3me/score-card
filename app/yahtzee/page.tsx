@@ -1,6 +1,6 @@
 'use client'
 import TableInput from '@/components/table-input/table-input';
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import { Cell, Column, Row, Table, TableBody, TableHeader } from 'react-aria-components';
 
 export default function Home() {
@@ -24,10 +24,10 @@ export default function Home() {
     return upperScores.reduce((acc, row) => acc + row[colIndex], 0) + lowerScores.reduce((acc, row) => acc + row[colIndex], 0)
   }
 
-  const calculateTotal = (colIndex: number,scores) => {
+  const calculateTotal = (colIndex: number,scores: any[]) => {
     return scores.reduce((acc, row) => acc + row[colIndex], 0);
   };
-  const handleScoreChange = (rowIndex: number, colIndex: number, value: number, scores, setScores) => {
+  const handleScoreChange = (rowIndex: number, colIndex: number, value: number, scores: number[][], setScores: { (value: SetStateAction<number[][]>): void; (value: SetStateAction<number[][]>): void; (arg0: any[]): void; }) => {
     const newScores = [...scores];
     newScores[rowIndex][colIndex] = Number(value);
     setScores(newScores);
