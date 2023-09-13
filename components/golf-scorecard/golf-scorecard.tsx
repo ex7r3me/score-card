@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Button,Cell, Column, Row, Table, TableBody, TableHeader, TextField, Label, Input } from 'react-aria-components'
+import { Button, Cell, Column, Row, Table, TableBody, TableHeader, TextField, Label, Input } from 'react-aria-components'
 
 export default function GolfScorecard() {
   const [numUsers, setNumUsers] = useState(4)
