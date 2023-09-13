@@ -8,7 +8,7 @@ export default function GolfScorecard() {
   const addUser = () => setNumUsers(numUsers+1)
 
   return (
-    <Table aria-label='Golf scorecard' selectionMode='multiple' className='mx-auto'>
+    <Table aria-label='Golf scorecard' className='mx-auto'>
       <TableHeader>
         <Column isRowHeader className='w-12'>hole</Column>
         {Array.from(Array(numUsers).keys()).map(c => (
