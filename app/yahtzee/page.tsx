@@ -18,7 +18,6 @@ export default function Home() {
 
   const [upperScores, setUpperScores] = useState(initialScores(upperRowsNum));
   const [lowerScores, setLowerScores] = useState(initialScores(lowerRowsNum));
-  const [grandTotal, setGrandTotal] = useState(Array(numCols))
   
   const calculateGrandTotal = (colIndex: number) => {
     return upperScores.reduce((acc, row) => acc + row[colIndex], 0) + lowerScores.reduce((acc, row) => acc + row[colIndex], 0)
@@ -36,7 +35,7 @@ export default function Home() {
   return (
     <div className="p-2 ml-5 mr-5 rounded-md bg-beige">
       <h1 role='heading' className="text-xl font-bold text-center">Yahtzee</h1>
-      <Table aria-label="Files" selectionMode="multiple">
+      <Table aria-label="Files">
         <TableHeader>
           <Column isRowHeader>Name</Column>
           <Column isRowHeader><TableInput /></Column>
@@ -47,7 +46,7 @@ export default function Home() {
         <TableBody>
           {upperScores.map((row, rowIndex) => (
             <Row key={rowIndex}>
-              <Cell >{upperRows[rowIndex]}</Cell>
+              <Cell><span>{upperRows[rowIndex]}</span></Cell>
               {row.map((score, colIndex) => (
                 <Cell className="border-2 border-primary-gray" key={colIndex}>
                   <TableInput
@@ -59,14 +58,14 @@ export default function Home() {
             </Row>
           ))}
           <Row>
-            <Cell>Total</Cell>
+            <Cell><span>Total</span></Cell>
             {Array.from({ length: numCols }).map((_, colIndex) => (
               <Cell key={colIndex}>{calculateTotal(colIndex, upperScores)}</Cell>
             ))}
           </Row>
           {lowerScores.map((row, rowIndex) => (
             <Row key={rowIndex}>
-              <Cell>{lowerRows[rowIndex]}</Cell>
+              <Cell><span>{lowerRows[rowIndex]}</span></Cell>
               {row.map((score, colIndex) => (
                 <Cell className="border-2 border-primary-gray" key={colIndex}>
                   <TableInput
@@ -78,13 +77,13 @@ export default function Home() {
             </Row>
           ))}
           <Row>
-            <Cell>Total</Cell>
+            <Cell><span>Total</span></Cell>
             {Array.from({ length: numCols }).map((_, colIndex) => (
               <Cell key={colIndex}>{calculateTotal(colIndex, lowerScores)}</Cell>
             ))}
           </Row>
           <Row>
-            <Cell>Grand Total</Cell>
+            <Cell><span>Grand Total</span></Cell>
             {Array.from({ length: numCols }).map((_, colIndex) => (
               <Cell key={colIndex}>{calculateGrandTotal(colIndex)}</Cell>
             ))}
