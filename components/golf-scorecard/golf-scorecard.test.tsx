@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event'
 import GolfScorecard from "./golf-scorecard";
 
 describe('GolfScorecard', () => {
-  it('renders correctly', async () => {
+  it('handles keyboard navigation correctly', async () => {
     render(<GolfScorecard />)
     
     const user = userEvent.setup()
