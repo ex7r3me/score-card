@@ -38,7 +38,7 @@ export default function GolfScorecard() {
           )
         })}
         <Row className='border-solid border-t-2 border-primary-gray'>
-          <Cell className='font-bold text-center'>Total</Cell>
+          <Cell className='font-bold text-center'><span>Total</span></Cell>
           <Cell className='border-solid border-l-2 border-primary-gray'></Cell>
           <Cell className='border-solid border-l-2 border-primary-gray'></Cell>
           <Cell className='border-solid border-l-2 border-primary-gray'></Cell>
