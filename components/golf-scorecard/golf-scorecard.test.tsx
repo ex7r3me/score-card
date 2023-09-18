@@ -16,4 +16,3 @@ describe('GolfScorecard', () => {
     expect(screen.getByText('hole')).toHaveFocus()
   })
 })
-
