@@ -19,7 +19,7 @@ const config: Config = {
         "accent-gray": "#474A48",
         "dark-green": "#62A87C",
         "light-green": "#7EE081",
-        "beige": "#F1D6B8",
+        "beige": "#FCF5EE",
         "white": "#FFFFFF"
       }
     },
