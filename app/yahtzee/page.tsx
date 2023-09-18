@@ -63,12 +63,12 @@ export default function Home() {
               <Cell  className="border-l border-primary-gray" key={colIndex}>{calculateTotal(colIndex, upperScores)}</Cell>
             ))}
           </Row>
-          <Row className="border-b border-primary-gray">
+          <Row className="">
             <Cell><span>Lower</span></Cell>
            
           </Row>
           {lowerScores.map((row, rowIndex) => (
-            <Row className="border-b border-primary-gray" key={rowIndex}>
+            <Row className="border-t border-b border-primary-gray" key={rowIndex}>
               <Cell><span>{lowerRows[rowIndex]}</span></Cell>
               {row.map((score, colIndex) => (
                 <Cell className="border-l border-primary-gray" key={colIndex}>
