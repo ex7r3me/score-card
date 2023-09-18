@@ -37,7 +37,7 @@ export default function MainMenu({ onToggle }: MainMenuProps) {
               className={`flex pl-3 items-center w-full px-2 py-2 text-sm  text-white ui-active:bg-blue-500`}
               href="/golf"
             >
-              Miniature Golf
+              Golf
             </Link>
           </Menu.Item>
           <Menu.Item>
