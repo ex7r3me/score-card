@@ -10,7 +10,8 @@ export default function GolfScorecard() {
   const [playerTotals, setPlayerTotals] = useState(Array.from(Array(numPlayers)))
 
   function onAddScore(e: React.ChangeEvent<HTMLInputElement>, hole: number, player: number) {
-    const score = e.currentTarget.value
+    const score = e.currentTarget.value.replace(/\D/g, '')
+    
     setScorecard(addScore(score, hole, player, scorecard))
 
     const totals = Array.from(Array(numPlayers).keys()).map((player) => {
@@ -52,6 +53,7 @@ export default function GolfScorecard() {
                         <Input 
                           inputMode='numeric' 
                           className='bg-transparent w-16 px-2 text-center text-dark-green font-bold'
+                          value={scorecard[rowIndex][i] || ''}
                           onChange={(e) => onAddScore(e,hole,i)}
                         />
                       </TextField>
