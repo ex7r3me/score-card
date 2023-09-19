@@ -22,48 +22,52 @@ export default function GolfScorecard() {
 
   return (
     <Table aria-label='Golf scorecard' className='mx-auto'>
-      <TableHeader>
-        <Column isRowHeader className='w-12'>hole</Column>
+      <TableHeader className='hidden'>
+        <Column></Column>
         {Array.from(Array(numPlayers).keys()).map(c => (
-          <Column key={'column'+c} className='border-solid border-l-2 border-primary-gray'>
-            <TextField defaultValue={'player'+(c+1)}>
-              <Label hidden>Player name</Label>
-              <Input className='bg-transparent w-16 text-center text-dark-green'/>
-            </TextField>
-          </Column>
+          <Column key={'header'+c} isRowHeader>Name</Column>
         ))}
       </TableHeader>
       <TableBody>
-        {
-          scorecard.map((row, rowIndex) => {
-            const hole = rowIndex+1
-            return (
-              <Row key={'hole'+hole} className='border-solid border-t-2 border-primary-gray'>
-                {row.map((col, i) => {
-                  if (i === 0) { // fist column is always hole number
-                    return (
-                      <Cell key={'hole'+hole+'scores'} className='font-bold text-center'>{col}</Cell>
-                    )
-                  }
-                  
+        <Row key='column-names'>
+          <Cell className='w-12 font-bold '>hole</Cell>
+          {Array.from(Array(numPlayers).keys()).map(c => (
+            <Cell key={'column'+c} className='font-bold border-solid border-l-2 border-primary-gray'>
+              <TextField defaultValue={'player'+(c+1)}>
+                <Label hidden>Player name</Label>
+                <Input className='bg-transparent w-16 text-center text-dark-green'/>
+              </TextField>
+            </Cell>
+          ))}
+        </Row>
+        { scorecard.map((row, rowIndex) => {
+          const hole = rowIndex+1
+          return (
+            <Row key={'hole'+hole} className='border-solid border-t-2 border-primary-gray'>
+              {row.map((col, i) => {
+                if (i === 0) { // fist column is always hole number
                   return (
-                    <Cell key={'h'+hole+'p'+i+'-score'} className='border-solid border-l-2 border-primary-gray'>
-                      <TextField>
-                        <Label hidden>player score for hole {row[0]}</Label>
-                        <Input 
-                          inputMode='numeric' 
-                          className='bg-transparent w-16 px-2 text-center text-dark-green font-bold'
-                          value={scorecard[rowIndex][i] || ''}
-                          onChange={(e) => onAddScore(e,hole,i)}
-                        />
-                      </TextField>
-                    </Cell>
+                    <Cell key={'hole'+hole+'scores'} className='text-center'>{col}</Cell>
                   )
-                })}
-              </Row>
-            )
-          })
-        }
+                }
+                
+                return (
+                  <Cell key={'h'+hole+'p'+i+'-score'} className='border-solid border-l-2 border-primary-gray'>
+                    <TextField>
+                      <Label hidden>player score for hole {row[0]}</Label>
+                      <Input 
+                        inputMode='numeric' 
+                        className='bg-transparent w-16 px-2 text-center text-dark-green'
+                        value={scorecard[rowIndex][i] || ''}
+                        onChange={(e) => onAddScore(e,hole,i)}
+                      />
+                    </TextField>
+                  </Cell>
+                )
+              })}
+            </Row>
+          )
+        })}
         <Row key='totals' className='border-solid border-t-2 border-primary-gray'>
           <Cell key='total-label' className='font-bold text-center'><span>Total</span></Cell>
           { playerTotals.map((col, i) => (
