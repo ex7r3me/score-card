@@ -21,7 +21,7 @@ export const addScore = (score: string, hole: number, player: number, scorecard:
   return scorecard
 }
 
-export const calculatePlayerScore = (player: number, scorecard: TScorecard) => {
+export const calculatePlayerScore = (player: number, scorecard: TScorecard): number => {
   if (player === 0 || scorecard[0].length < player + 1) throw('invalid player number')
 
   const score = scorecard.reduce((acc, curr) => acc += curr[player], 0)
