@@ -11,7 +11,7 @@ export default function Navigation() {
   return (
     <div>
       {overlay && <div className="fixed inset-0 z-10 transition-opacity bg-gray-500 bg-opacity-75"></div>}
-      <nav role="navigation" className="relative z-20 flex items-center align-middle h-14 bg-primary-gray">
+      <nav role="navigation" className="fixed w-full z-20 flex items-center align-middle h-14 bg-primary-gray">
         <MainMenu onToggle={() => {setOverlay(!overlay)}}/>
         <Link
           href="/"

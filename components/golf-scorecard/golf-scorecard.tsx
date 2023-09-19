@@ -67,7 +67,7 @@ export default function GolfScorecard() {
         <Row key='totals' className='border-solid border-t-2 border-primary-gray'>
           <Cell key='total-label' className='font-bold text-center'><span>Total</span></Cell>
           { playerTotals.map((col, i) => (
-            <Cell key={'p'+i+'total'} className='font-bold text-center border-solid border-l-2 border-primary-gray'>{col}</Cell>
+            <Cell key={'p'+i+'total'} className='font-bold text-center border-solid border-l-2 border-primary-gray'>{col || 0}</Cell>
           ))}
         </Row>
       </TableBody>
