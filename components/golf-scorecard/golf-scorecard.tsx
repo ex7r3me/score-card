@@ -23,9 +23,9 @@ export default function GolfScorecard() {
   return (
     <Table aria-label='Golf scorecard' className='mx-auto'>
       <TableHeader className='hidden'>
-        <Column></Column>
+        <Column isRowHeader>Hole</Column>
         {Array.from(Array(numPlayers).keys()).map(c => (
-          <Column key={'header'+c} isRowHeader>Name</Column>
+          <Column key={'header'+c}>Name</Column>
         ))}
       </TableHeader>
       <TableBody>
