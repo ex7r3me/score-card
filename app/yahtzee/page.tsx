@@ -1,101 +1,10 @@
-'use client'
-import TableInput from '@/components/table-input/table-input';
-import { SetStateAction, useState } from 'react';
-import { Cell, Column, Row, Table, TableBody, TableHeader } from 'react-aria-components';
+import YahtzeeScorecard from "@/components/yahtzee-scorecard/yahtzee-scorecard";
 
 export default function Home() {
-  const upperRows = ['Aces', 'Twos', 'Threes', 'Fours', 'Fives', 'Sixes', 'Bonus']
-  const lowerRows = ['3 of a kind', '4 of a kind', 'full house', 'sm straight', 'lg straight', 'yahtzee', 'bonus']
-  const upperRowsNum = upperRows.length;
-  const lowerRowsNum = lowerRows.length;
-
-  const numCols = 4;
-
-  // Initialize state for the scores using a dynamic array
-  const initialScores = (length: number) => Array.from({ length }, () =>
-    Array.from({ length: numCols }, () => 0)
-  );
-
-  const [upperScores, setUpperScores] = useState(initialScores(upperRowsNum));
-  const [lowerScores, setLowerScores] = useState(initialScores(lowerRowsNum));
-
-  const calculateGrandTotal = (colIndex: number) => {
-    return upperScores.reduce((acc, row) => acc + row[colIndex], 0) + lowerScores.reduce((acc, row) => acc + row[colIndex], 0)
-  }
-
-  const calculateTotal = (colIndex: number, scores: any[]) => {
-    return scores.reduce((acc, row) => acc + row[colIndex], 0);
-  };
-  const handleScoreChange = (rowIndex: number, colIndex: number, value: number, scores: number[][], setScores: { (value: SetStateAction<number[][]>): void; (value: SetStateAction<number[][]>): void; (arg0: any[]): void; }) => {
-    const newScores = [...scores];
-    newScores[rowIndex][colIndex] = Number(value);
-    setScores(newScores);
-  };
-
   return (
-    <div className="flex flex-col justify-center p-2 ml-5 mr-5 rounded-md bg-beige">
-      <h1 role='heading' className="mb-4 text-xl text-center">Yahtzee</h1>
-      <Table className="self-center table-auto " aria-label="Yahtzee Scores Board">
-        <TableHeader className="text-center border-b border-primary-gray" >
-          <Column isRowHeader>Upper</Column>
-          <Column isRowHeader className="border-l border-primary-gray"><TableInput /></Column>
-          <Column isRowHeader className="border-l border-primary-gray"><TableInput /></Column>
-          <Column isRowHeader className="border-l border-primary-gray"><TableInput /></Column>
-          <Column isRowHeader className="border-l border-primary-gray"><TableInput /></Column>
-        </TableHeader>
-        <TableBody className="text-center text-primary-gray">
-          {upperScores.map((row, rowIndex) => (
-            <Row className="border-b border-primary-gray" key={rowIndex}>
-              <Cell className='' ><span>{upperRows[rowIndex]}</span></Cell>
-              {row.map((score, colIndex) => (
-                <Cell className="border-l border-primary-gray" key={colIndex}>
-                  <TableInput
-                    value={score}
-                    onChange={(e) => handleScoreChange(rowIndex, colIndex, Number(e.target.value), upperScores, setUpperScores)}
-                  />
-                </Cell>
-              ))}
-            </Row>
-          ))}
-           <Row className="border-b border-primary-gray">
-            <Cell><span>Total</span></Cell>
-            {Array.from({ length: numCols }).map((_, colIndex) => (
-              <Cell  className="border-l border-primary-gray" key={colIndex}>{calculateTotal(colIndex, upperScores)}</Cell>
-            ))}
-          </Row>
-          <Row className="">
-            <Cell><span>Lower</span></Cell>
-           
-          </Row>
-          {lowerScores.map((row, rowIndex) => (
-            <Row className="border-t border-b border-primary-gray" key={rowIndex}>
-              <Cell><span>{lowerRows[rowIndex]}</span></Cell>
-              {row.map((score, colIndex) => (
-                <Cell className="border-l border-primary-gray" key={colIndex}>
-                  <TableInput
-                    value={score}
-                    onChange={(e) => handleScoreChange(rowIndex, colIndex, Number(e.target.value), lowerScores, setLowerScores)}
-                  />
-                </Cell>
-              ))}
-            </Row>
-          ))}
-          <Row className="border-b border-primary-gray">
-            <Cell ><span>Total</span></Cell>
-            {Array.from({ length: numCols }).map((_, colIndex) => (
-              <Cell className="border-l border-primary-gray" key={colIndex}>{calculateTotal(colIndex, lowerScores)}</Cell>
-            ))}
-          </Row>
-          <Row className="border-b border-primary-gray">
-            <Cell ><span>Grand Total</span></Cell>
-            {Array.from({ length: numCols }).map((_, colIndex) => (
-              <Cell className="border-l border-primary-gray" key={colIndex}>{calculateGrandTotal(colIndex)}</Cell>
-            ))}
-          </Row>
-
-        </TableBody>
-      </Table>
-
+    <div className="max-w-md p-4 m-4 ml-auto mr-auto overflow-x-auto shadow-md bg-beige rounded-2xl">
+      <h1 role='heading' className="my-2 text-3xl font-bold text-center">Yahtzee</h1>
+      <YahtzeeScorecard />
     </div>
   );
 }
