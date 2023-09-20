@@ -27,9 +27,10 @@ export default function GolfScorecard() {
   const calculateTotal = (colIndex: number, scores: any[]) => {
     return scores.reduce((acc, row) => acc + row[colIndex], 0);
   };
-  const handleScoreChange = (rowIndex: number, colIndex: number, value: number, scores: number[][], setScores: { (value: SetStateAction<number[][]>): void; (value: SetStateAction<number[][]>): void; (arg0: any[]): void; }) => {
+  const handleScoreChange = (rowIndex: number, colIndex: number, value: string, scores: number[][], setScores: { (value: SetStateAction<number[][]>): void; (value: SetStateAction<number[][]>): void; (arg0: any[]): void; }) => {
+    const numberValue = value.replace(/\D/g, "")
     const newScores = [...scores];
-    newScores[rowIndex][colIndex] = Number(value);
+    newScores[rowIndex][colIndex] = Number(numberValue);
     setScores(newScores);
   };
 
@@ -58,7 +59,7 @@ export default function GolfScorecard() {
                 <Cell className="border-l border-primary-gray" key={colIndex}>
                   <TableInput
                     value={score}
-                    onChange={(e) => handleScoreChange(rowIndex, colIndex, Number(e.target.value), upperScores, setUpperScores)}
+                    onChange={(e) => handleScoreChange(rowIndex, colIndex, e.target.value, upperScores, setUpperScores)}
                   />
                 </Cell>
               ))}
@@ -81,7 +82,7 @@ export default function GolfScorecard() {
                 <Cell className="border-l border-primary-gray" key={colIndex}>
                   <TableInput
                     value={score}
-                    onChange={(e) => handleScoreChange(rowIndex, colIndex, Number(e.target.value), lowerScores, setLowerScores)}
+                    onChange={(e) => handleScoreChange(rowIndex, colIndex, e.target.value, lowerScores, setLowerScores)}
                   />
                 </Cell>
               ))}
