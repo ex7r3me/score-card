@@ -1,7 +1,7 @@
 'use client'
 
 import TableInput from '@/components/table-input/table-input';
-import { SetStateAction, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { Cell, Column, Row, Table, TableBody, TableHeader } from 'react-aria-components';
 
 export default function GolfScorecard() {
@@ -11,7 +11,12 @@ export default function GolfScorecard() {
   const lowerRowsNum = lowerRows.length;
 
   const numCols = 4;
-
+  useEffect(() => {
+    const upperScoresLoaded = JSON.parse(localStorage.getItem('yahtzee-scores-upper') as string) || initialScores(upperRowsNum)
+    const lowerScoresLoaded = JSON.parse(localStorage.getItem('yahtzee-scores-lower') as string) || initialScores(lowerRowsNum)
+    setUpperScores(upperScoresLoaded);
+    setLowerScores(lowerScoresLoaded)
+  });
   // Initialize state for the scores using a dynamic array
   const initialScores = (length: number) => Array.from({ length }, () =>
     Array.from({ length: numCols }, () => 0)
@@ -32,6 +37,10 @@ export default function GolfScorecard() {
     const newScores = [...scores];
     newScores[rowIndex][colIndex] = Number(numberValue);
     setScores(newScores);
+    localStorage.setItem('yahtzee-scores-upper', JSON.stringify(upperScores));
+    localStorage.setItem('yahtzee-scores-lower', JSON.stringify(lowerScores));
+
+
   };
 
   return (
