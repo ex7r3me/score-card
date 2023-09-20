@@ -13,12 +13,7 @@ export default function GolfScorecard() {
   const lowerRowsNum = lowerRows.length;
 
   const numCols = 4;
-  useEffect(() => {
-    const upperScoresLoaded = JSON.parse(localStorage.getItem('yahtzee-scores-upper') as string) || initialScores(upperRowsNum)
-    const lowerScoresLoaded = JSON.parse(localStorage.getItem('yahtzee-scores-lower') as string) || initialScores(lowerRowsNum)
-    setUpperScores(upperScoresLoaded);
-    setLowerScores(lowerScoresLoaded)
-  });
+
   // Initialize state for the scores using a dynamic array
   const initialScores = (length: number) => Array.from({ length }, () =>
     Array.from({ length: numCols }, () => 0)
@@ -41,9 +36,16 @@ export default function GolfScorecard() {
     setScores(newScores);
     localStorage.setItem('yahtzee-scores-upper', JSON.stringify(upperScores));
     localStorage.setItem('yahtzee-scores-lower', JSON.stringify(lowerScores));
-
-
   };
+
+  useEffect(() => {
+    const upperScoresLoaded = JSON.parse(localStorage.getItem('yahtzee-scores-upper') as string) || initialScores(upperRowsNum)
+    const lowerScoresLoaded = JSON.parse(localStorage.getItem('yahtzee-scores-lower') as string) || initialScores(lowerRowsNum)
+    if (upperScoresLoaded && lowerScoresLoaded) {
+      setUpperScores(upperScoresLoaded);
+      setLowerScores(lowerScoresLoaded)
+    }
+  }, []);
 
   return (
     <div className="flex flex-col justify-center">
@@ -116,8 +118,8 @@ export default function GolfScorecard() {
         </TableBody>
       </Table>
       <div className='flex flex-row justify-items-start items-start justify-center p-2'>
-        <Button onPress={() =>{} } className='inline-block bg-dark-green text-white py-1 px-3 font-bold rounded-md mr-3'>Reveal Score</Button>
-        <ClearButton onAccept={()=>{}} />
+        <Button onPress={() => { }} className='inline-block bg-dark-green text-white py-1 px-3 font-bold rounded-md mr-3'>Reveal Score</Button>
+        <ClearButton onAccept={() => { }} />
       </div>
 
 
