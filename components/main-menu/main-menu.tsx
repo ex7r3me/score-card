@@ -8,10 +8,10 @@ interface MainMenuProps {
 
 export default function MainMenu({ onToggle }: MainMenuProps) {
   return (
-    <Menu as="div" className="absolute z-20" >
+    <Menu as="div" className="absolute " >
       {({ open }) => (
         <>
-          { open && (<div className='bg-black/70 fixed top-14 left-0 w-full h-full'></div>)}
+          { open && (<div className='bg-black/70 fixed top-14 left-0 w-full h-full' aria-hidden="true" />)}
           <Menu.Button className="relative z-10 p-1 ml-3 text-white rounded-md bg-accent-gray" >
             { open ? <XMarkIcon className="w-8 h-8" /> : <Bars3Icon className="w-8 h-8" /> }
           </Menu.Button>
