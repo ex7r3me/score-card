@@ -12,8 +12,8 @@ describe('GolfScorecard', () => {
     render(<GolfScorecard />)
     
     const user = userEvent.setup()
-    await user.keyboard('{Tab}{Right}')
+    await user.keyboard('{Tab}{Down}{Right}')
 
-    expect(screen.getByText('hole')).toHaveFocus()
+    expect(screen.getByText(1)).toHaveFocus()
   })
 })
