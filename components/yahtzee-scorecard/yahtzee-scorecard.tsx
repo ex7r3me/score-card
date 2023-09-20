@@ -35,15 +35,22 @@ export default function GolfScorecard() {
 
   return (
     <div className="flex flex-col justify-center">
-      <Table className="self-center table-auto " aria-label="Yahtzee Scores Board" selectionMode="multiple">
-        <TableHeader className="text-center border-b border-primary-gray" >
-          <Column isRowHeader>Upper</Column>
-          <Column isRowHeader className="border-l border-primary-gray"><TableInput /></Column>
-          <Column isRowHeader className="border-l border-primary-gray"><TableInput /></Column>
-          <Column isRowHeader className="border-l border-primary-gray"><TableInput /></Column>
-          <Column isRowHeader className="border-l border-primary-gray"><TableInput /></Column>
+      <Table className="self-center table-auto " aria-label="Yahtzee Scores Board" >
+        <TableHeader className='hidden'>
+          <Column isRowHeader>Players</Column>
+          {Array.from(Array(numCols).keys()).map(c => (
+            <Column key={'header' + c}>Name</Column>
+          ))}
         </TableHeader>
+
         <TableBody className="text-center text-primary-gray">
+          <Row className="text-center border-b border-primary-gray" >
+            <Cell className="font-bold" >Upper</Cell>
+            <Cell className="border-l border-primary-gray"><TableInput /></Cell>
+            <Cell className="border-l border-primary-gray"><TableInput /></Cell>
+            <Cell className="border-l border-primary-gray"><TableInput /></Cell>
+            <Cell className="border-l border-primary-gray"><TableInput /></Cell>
+          </Row>
           {upperScores.map((row, rowIndex) => (
             <Row className="border-b border-primary-gray" key={rowIndex}>
               <Cell className='' ><span>{upperRows[rowIndex]}</span></Cell>
