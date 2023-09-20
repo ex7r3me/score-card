@@ -127,7 +127,10 @@ export default function GolfScorecard() {
       </Table>
       
       <div className='flex flex-row justify-items-start items-start justify-center p-2'>
-        <Button onPress={() => setShowScore(true)} className='inline-block bg-dark-green text-white py-1 px-3 font-bold rounded-md mr-3'>Reveal Score</Button>
+        { showScore
+          ? (<Button onPress={() => setShowScore(false)} className='inline-block bg-dark-green text-white py-1 px-3 font-bold rounded-md mr-3'>Hide Score</Button>)
+          : (<Button onPress={() => setShowScore(true)} className='inline-block bg-dark-green text-white py-1 px-3 font-bold rounded-md mr-3'>Reveal Score</Button>)
+        }
         <ClearButton onAccept={clearBoard} />
       </div>
     </div>
