@@ -45,7 +45,7 @@ export default function GolfScorecard() {
           return (
             <Row key={'hole'+hole} className='border-solid border-t-2 border-primary-gray'>
               {row.map((col, i) => {
-                if (i === 0) { // fist column is always hole number
+                if (i === 0) {
                   return (
                     <Cell key={'hole'+hole+'scores'} className='text-center'>{col}</Cell>
                   )
