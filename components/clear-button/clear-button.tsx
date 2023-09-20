@@ -15,8 +15,8 @@ export default function VerificationDialog({ onAccept }: { onAccept: () => void 
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)} className='bg-accent-gray p-2 rounded-md' aria-label='clear board'>
-        <TrashIcon aria-hidden="true" focusable='false' className='w-5 h-5 text-white' />
+      <button onClick={() => setIsOpen(true)} className='inline-block bg-accent-gray text-white py-1 px-3 font-bold rounded-md' aria-label='clear board'>
+        <TrashIcon aria-hidden="true" focusable='false' className='w-6 h-6 text-white' />
       </button>
       { isOpen && (<div className='bg-black/70 fixed z-20 top-0 left-0 w-full h-full' aria-hidden="true" />)}
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className='fixed z-30 inset-0 flex items-center justify-center'>

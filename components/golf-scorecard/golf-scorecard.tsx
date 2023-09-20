@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Cell, Column, Row, Table, TableBody, TableHeader, TextField, Label, Input } from 'react-aria-components'
+import { Button, Cell, Column, Row, Table, TableBody, TableHeader, TextField, Label, Input } from 'react-aria-components'
 import {initialScorecard, addScore, calculatePlayerScore} from '@/scorecards/golf'
 import ClearButton from '@/components/clear-button/clear-button'
 
@@ -20,6 +20,7 @@ function updateLocalstorage(players: string[], scorecard: number[][], totals: nu
 
 export default function GolfScorecard() {
   const [loading, setLoading] = useState(true)
+  const [showScore, setShowScore] = useState(false)
   const [players, setPlayers] = useState(initialState.players)
   const [scorecard, setScorecard] = useState(initialState.scorecard)
   const [totals, setTotals] = useState(initialState.totals)
@@ -114,16 +115,19 @@ export default function GolfScorecard() {
               </Row>
             )
           })}
-          <Row key='totals' className='border-solid border-t-2 border-primary-gray'>
-            <Cell key='total-label' className='font-bold text-center'><span>Total</span></Cell>
-            { totals.map((col, i) => (
-              <Cell key={'p'+i+'total'} className='font-bold text-center border-solid border-l-2 border-primary-gray'>{col || 0}</Cell>
-            ))}
-          </Row>
+          { showScore && (
+            <Row key='totals' className='border-solid border-t-2 border-primary-gray'>
+              <Cell key='total-label' className='font-bold text-center'><span>Total</span></Cell>
+              { totals.map((col, i) => (
+                <Cell key={'p'+i+'total'} className='font-bold text-center border-solid border-l-2 border-primary-gray'>{col || 0}</Cell>
+              ))}
+            </Row>
+          )}
         </TableBody>
       </Table>
       
-      <div className='p-2'>
+      <div className='flex flex-row justify-items-start items-start justify-center p-2'>
+        <Button onPress={() => setShowScore(true)} className='inline-block bg-dark-green text-white py-1 px-3 font-bold rounded-md mr-3'>Reveal Score</Button>
         <ClearButton onAccept={clearBoard} />
       </div>
     </div>
