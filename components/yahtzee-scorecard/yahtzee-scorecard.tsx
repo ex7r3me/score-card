@@ -1,8 +1,10 @@
 'use client'
 
-import TableInput from '@/components/table-input/table-input';
+import { Button, Cell, Column, Row, Table, TableBody, TableHeader } from 'react-aria-components';
 import { SetStateAction, useEffect, useState } from 'react';
-import { Cell, Column, Row, Table, TableBody, TableHeader } from 'react-aria-components';
+
+import ClearButton from '@/components/clear-button/clear-button';
+import TableInput from '@/components/table-input/table-input';
 
 export default function GolfScorecard() {
   const upperRows = ['Aces', 'Twos', 'Threes', 'Fours', 'Fives', 'Sixes', 'Bonus']
@@ -110,8 +112,14 @@ export default function GolfScorecard() {
             ))}
           </Row>
 
+
         </TableBody>
       </Table>
+      <div className='flex flex-row justify-items-start items-start justify-center p-2'>
+        <Button onPress={() =>{} } className='inline-block bg-dark-green text-white py-1 px-3 font-bold rounded-md mr-3'>Reveal Score</Button>
+        <ClearButton onAccept={()=>{}} />
+      </div>
+
 
     </div>
   );
