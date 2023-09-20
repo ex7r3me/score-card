@@ -30,7 +30,7 @@ export default function GolfScorecard() {
       </TableHeader>
       <TableBody>
         <Row key='column-names'>
-          <Cell className='w-12 font-bold '>hole</Cell>
+          <Cell className='w-12 font-bold text-center'><span>Hole</span></Cell>
           {Array.from(Array(numPlayers).keys()).map(c => (
             <Cell key={'column'+c} className='font-bold border-solid border-l-2 border-primary-gray'>
               <TextField defaultValue={'player'+(c+1)}>
