@@ -8,5 +8,5 @@ import Page from './page'
 it('it displays heading', async () => {
     render(<Page />)
     await screen.findByRole('heading')
-    expect(screen.getByRole('heading')).toHaveTextContent('About Score Card')
+    expect(screen.getByRole('heading')).toHaveTextContent('About Scorecard')
 })
