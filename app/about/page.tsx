@@ -13,6 +13,7 @@ export default function Home() {
     ml-0
     p-4
     shadow-md
+    hidden
   ">
       <h1 role='heading' className="text-3xl font-bold">About Scorecard</h1>
       <p className="mt-4">
