@@ -8,7 +8,7 @@ interface MainMenuProps {
 
 export default function MainMenu({ onToggle }: MainMenuProps) {
   return (
-    <Menu as="div" className="absolute " >
+    <Menu as="div" className="absolute" >
       {({ open }) => (
         <>
           { open && (<div className='bg-black/70 fixed top-14 left-0 w-full h-full' aria-hidden="true" />)}
