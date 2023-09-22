@@ -3,10 +3,9 @@
 import * as THREE from 'three'
 import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
-import { Canvas, useFrame, useThree } from "@react-three/fiber"
+import { Canvas } from "@react-three/fiber"
 import { useLoader } from "@react-three/fiber"
-import { Environment, PerspectiveCamera, CameraControls } from "@react-three/drei"
-import { useControls } from 'leva'
+import { Environment, CameraControls } from "@react-three/drei"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 import { Suspense } from "react"
 import { Vector3 } from 'three'
