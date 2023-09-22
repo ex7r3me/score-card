@@ -14,7 +14,7 @@ import { Vector3 } from 'three'
 const { DEG2RAD } = THREE.MathUtils
 
 const Model = () => {
-  const gltf = useLoader(GLTFLoader, "/Golf.glb")
+  const gltf = useLoader(GLTFLoader, "/golf.glb")
 
   return (
     <mesh>
@@ -60,7 +60,7 @@ const MainScene = () => {
 export default function ThreeBackground() {
   return (
     <div className="fixed z-0 top-0 left-0 w-full h-full">
-      <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
+      <Canvas camera={{ position: [0, -0.2, -2], fov: 60 }}>
         <Suspense fallback={null}>
           <MainScene />
         </Suspense>
