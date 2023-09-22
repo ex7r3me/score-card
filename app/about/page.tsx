@@ -1,21 +1,8 @@
 export default function Home() {
   return (
-    <div className="
-    container 
-    relative
-    bg-light-green 
-    rounded-tl-lg
-    rounded-tr-2xl
-    rounded-br-2xl
-    rounded-bl-2xl 
-    text-center 
-    m-4
-    ml-0
-    p-4
-    shadow-md
-  ">
-      <h1 role='heading' className="text-3xl font-bold">About Scorecard</h1>
-      <p className="mt-4">
+    <div className="container relative bg-light-green p-4 pb-8 m-4 ml-auto mr-auto max-w-md rounded-2xl overflow-x-auto shadow-md">
+      <h1 role='heading' className="text-3xl text-center font-bold">About Scorecard</h1>
+      <p className="mt-4 text-center">
       Scorecard is a project where we aim to create digital and easy to use 
       versions of scorecards you usually se in a analog format. Like Yahtzee 
       and Golf and we would like to add more scorecards later on.
