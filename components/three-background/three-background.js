@@ -11,16 +11,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 import { Suspense } from "react"
 import { Vector3 } from 'three'
 
-<<<<<<< Updated upstream
-const Model = () => {
-  const pathname = usePathname()
-  const gltf = useLoader(GLTFLoader, "/golf.glb")
-  const model = useRef()
-  const homePosition = new Vector3(0, -0.6, 2.3) //[0, -1.4, 1.2]
-  const golfPosition = new Vector3(0, -1, -0.8) //[0, -1.4, 1]
-=======
 const { DEG2RAD } = THREE.MathUtils
->>>>>>> Stashed changes
 
 const Model = () => {
   const gltf = useLoader(GLTFLoader, "/Golf.glb")
