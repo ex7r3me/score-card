@@ -35,7 +35,7 @@ const MainScene = () => {
         cameraControlsRef.current?.setLookAt(0, -0.4, 0, 0, 1, 2, true)
       break
       case '/about':
-        cameraControlsRef.current?.setLookAt(2, 4, 3, 0, -2, 0, true)
+        cameraControlsRef.current?.setLookAt(1, -0.4, 2, -1, 1, 2, true)
       break
       default:
         cameraControlsRef.current?.setLookAt(0, -0.4, -3, 0, 0, 0, true)
