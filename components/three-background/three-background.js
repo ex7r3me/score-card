@@ -1,11 +1,11 @@
 'use client'
 
 import * as THREE from 'three'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
-import { Canvas, useThree } from "@react-three/fiber"
+import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { useLoader } from "@react-three/fiber"
-import { Environment, CameraControls } from "@react-three/drei"
+import { Environment, PerspectiveCamera, CameraControls } from "@react-three/drei"
 import { useControls } from 'leva'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 import { Suspense } from "react"
@@ -25,36 +25,34 @@ const Model = () => {
 
 const MainScene = () => {
   const pathname = usePathname()
-
   const cameraControlsRef = useRef()
-  const { camera } = useThree()
+  
+  const homeLookAtPos = new Vector3(-1.03, -0.75, -6.57)
+  const homeCamPos = new Vector3(0, -0.4, -3)
 
-  switch(pathname) {
-    case '/golf':
-      console.log(cameraControlsRef.current)
-      cameraControlsRef.current?.dolly(1, true)
-    break
-    case '/yahtzee':
-      () => cameraControlsRef.current?.dolly(2, true)
-    break
-    case '/about':
-      () => cameraControlsRef.current?.dolly(3, true)
-    break
-    default:
-      () => cameraControlsRef.current?.dolly(0, true)
-    break
-  }
+  useEffect(() => {
+
+    switch(pathname) {
+      case '/golf': 
+        cameraControlsRef.current?.setLookAt(0, -0.2, -2, -1, -1, 2, true)
+      break
+      case '/yahtzee':
+        cameraControlsRef.current?.setLookAt(0, -0.4, 0, 0, 1, 2, true)
+      break
+      case '/about':
+        cameraControlsRef.current?.setLookAt(2, 4, 3, 0, -2, 0, true)
+      break
+      default:
+        cameraControlsRef.current?.setLookAt(0, -0.4, -3, 0, 0, 0, true)
+      break
+    }
+  })
 
   return (
     <>
       <Model />
       <Environment preset="park" background blur={0.5} />
-      <CameraControls 
-        ref={cameraControlsRef}
-        dollySpeed={0.1}
-        minDistance={{ value: 0 }}
-        enabled={{ enabled: true, label: 'camera controls on'}}
-      />
+      <CameraControls ref={cameraControlsRef} />
     </>
   )
 }
@@ -62,7 +60,7 @@ const MainScene = () => {
 export default function ThreeBackground() {
   return (
     <div className="fixed z-0 top-0 left-0 w-full h-full">
-      <Canvas>
+      <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
         <Suspense fallback={null}>
           <MainScene />
         </Suspense>

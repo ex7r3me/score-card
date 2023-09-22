@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={inter.className + ' h-full'}>
         <Navigation />
         <ThreeBackground />
-        <main className='relative z-10 h-full pt-14 pl-4 pr-4 mx-auto max-w-3xl'>
+        <main className='relative z-20 h-full pt-14 pl-4 pr-4 mx-auto max-w-3xl'>
           {children}
         </main>  
       </body>

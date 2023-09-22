@@ -9,7 +9,7 @@ export default function Navigation() {
   const [overlay, setOverlay] = useState(false);
 
   return (
-    <div className='fixed inset-0 z-20'>
+    <div className='fixed inset-0 z-30 h-3'>
       {overlay && <div className="transition-opacity bg-gray-500 bg-opacity-75"></div>}
       <nav role="navigation" className="fixed w-full z-10 flex items-center align-middle h-14 bg-primary-gray">
         <MainMenu onToggle={() => {setOverlay(!overlay)}}/>
