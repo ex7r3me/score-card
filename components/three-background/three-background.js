@@ -8,7 +8,6 @@ import { useLoader } from "@react-three/fiber"
 import { Environment, CameraControls } from "@react-three/drei"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 import { Suspense } from "react"
-import { Vector3 } from 'three'
 
 const { DEG2RAD } = THREE.MathUtils
 
@@ -26,9 +25,6 @@ const MainScene = () => {
   const pathname = usePathname()
   const cameraControlsRef = useRef()
   
-  const homeLookAtPos = new Vector3(-1.03, -0.75, -6.57)
-  const homeCamPos = new Vector3(0, -0.4, -3)
-
   useEffect(() => {
 
     switch(pathname) {
@@ -58,8 +54,8 @@ const MainScene = () => {
 
 export default function ThreeBackground() {
   return (
-    <div className="fixed z-0 top-0 left-0 w-full h-full">
-      <Canvas camera={{ position: [0, -0.2, -2], fov: 60 }}>
+    <div className="fixed z-0 top-0 left-0 w-full h-full bg-blue-100">
+      <Canvas camera={{ position: [0, 20, -4], fov: 60 }}>
         <Suspense fallback={null}>
           <MainScene />
         </Suspense>
