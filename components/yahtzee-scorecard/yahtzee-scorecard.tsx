@@ -6,7 +6,7 @@ import { SetStateAction, useEffect, useState } from 'react';
 import ClearButton from '@/components/clear-button/clear-button';
 import TableInput from '@/components/table-input/table-input';
 
-export default function GolfScorecard() {
+export default function YahtzeeScorecard() {
   const upperRows = ['Aces', 'Twos', 'Threes', 'Fours', 'Fives', 'Sixes', 'Bonus']
   const lowerRows = ['3 of a kind', '4 of a kind', 'full house', 'sm straight', 'lg straight', 'yahtzee', 'bonus']
   const upperRowsNum = upperRows.length;
@@ -22,6 +22,12 @@ export default function GolfScorecard() {
   const [upperScores, setUpperScores] = useState(initialScores(upperRowsNum));
   const [lowerScores, setLowerScores] = useState(initialScores(lowerRowsNum));
 
+  const clearBoard = () => {
+    setUpperScores(initialScores(upperRowsNum))
+    setLowerScores(initialScores(lowerRowsNum))
+    localStorage.removeItem('yahtzee-scores-upper')
+    localStorage.removeItem('yahtzee-scores-lower')
+  }
   const calculateGrandTotal = (colIndex: number) => {
     return upperScores.reduce((acc, row) => acc + row[colIndex], 0) + lowerScores.reduce((acc, row) => acc + row[colIndex], 0)
   }
@@ -39,14 +45,18 @@ export default function GolfScorecard() {
   };
 
   useEffect(() => {
-    const upperScoresLoaded = JSON.parse(localStorage.getItem('yahtzee-scores-upper') as string) || initialScores(upperRowsNum)
-    const lowerScoresLoaded = JSON.parse(localStorage.getItem('yahtzee-scores-lower') as string) || initialScores(lowerRowsNum)
-    if (upperScoresLoaded && lowerScoresLoaded) {
-      setUpperScores(upperScoresLoaded);
-      setLowerScores(lowerScoresLoaded)
+    try {
+      const upperScoresLoaded = JSON.parse(localStorage.getItem('yahtzee-scores-upper') as string) || initialScores(upperRowsNum)
+      const lowerScoresLoaded = JSON.parse(localStorage.getItem('yahtzee-scores-lower') as string) || initialScores(lowerRowsNum)
+      if (upperScoresLoaded && lowerScoresLoaded) {
+        setUpperScores(upperScoresLoaded);
+        setLowerScores(lowerScoresLoaded)
+      }
+    } catch(e){
+      setUpperScores(initialScores(upperRowsNum));
+      setLowerScores(initialScores(lowerRowsNum))
     }
   }, []);
-
   return (
     <div className="flex flex-col justify-center">
       <Table className="self-center table-auto " aria-label="Yahtzee Scores Board" >
@@ -56,7 +66,6 @@ export default function GolfScorecard() {
             <Column key={'header' + c}>Name</Column>
           ))}
         </TableHeader>
-
         <TableBody className="text-center text-primary-gray">
           <Row className="text-center border-b border-primary-gray" >
             <Cell className="font-bold" >Upper</Cell>
@@ -86,6 +95,10 @@ export default function GolfScorecard() {
           </Row>
           <Row className="font-bold">
             <Cell><span>Lower</span></Cell>
+            <Cell></Cell>
+            <Cell></Cell>
+            <Cell></Cell>
+            <Cell></Cell>
 
           </Row>
           {lowerScores.map((row, rowIndex) => (
@@ -113,16 +126,12 @@ export default function GolfScorecard() {
               <Cell className="border-l border-primary-gray" key={colIndex}>{calculateGrandTotal(colIndex)}</Cell>
             ))}
           </Row>
-
-
         </TableBody>
       </Table>
       <div className='flex flex-row justify-items-start items-start justify-center p-2'>
         <Button onPress={() => { }} className='inline-block bg-dark-green text-white py-1 px-3 font-bold rounded-md mr-3'>Reveal Score</Button>
-        <ClearButton onAccept={() => { }} />
+        <ClearButton onAccept={clearBoard} />
       </div>
-
-
     </div>
   );
 }
