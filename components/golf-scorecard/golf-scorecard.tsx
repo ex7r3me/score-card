@@ -65,7 +65,9 @@ export default function GolfScorecard() {
     setScorecard(initialState.scorecard)
     setTotals(initialState.totals)
   }
+
   if (loading) return (<p className='text-center'>loading...</p>)
+  
   return (
     <div className='flex flex-col items-center'>
       <Table aria-label='Golf scorecard'>
