@@ -22,12 +22,7 @@ interface IAction {
 
 const initialState: { players: Function, scorecard: Function, totals: Function} = {
   players: () => ['Player1', 'Player2', 'Player3', 'Player4'],
-  scorecard:() => Array.from(Array(18).keys()).map(row => {
-    return Array.from(Array(5).keys()).map(col => {
-      if (col === 0) return row+1
-      return 0
-    })
-  }),
+  scorecard: () => initialScorecard(4),
   totals: () => Array.from(Array(4)),
 }
 
