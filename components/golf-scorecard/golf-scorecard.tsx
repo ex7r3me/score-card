@@ -1,87 +1,110 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import { Button, Cell, Column, Row, Table, TableBody, TableHeader, TextField, Label, Input } from 'react-aria-components'
-import {initialScorecard, addScore, calculatePlayerScore} from '@/scorecards/golf'
+import { initialScorecard, addScore, calculatePlayerScore, TScorecard } from '@/scorecards/golf'
 import ClearButton from '@/components/clear-button/clear-button'
+import RevealWinner from '../reveal-winner/reveal-winner'
+import ScorecardRows from './golf-scorecard-rows'
 
 const localStorageKey = 'golf-state'
 
-let initialState = {
-  players: ['Player1', 'Player2', 'Player3', 'Player4'],
-  scorecard: initialScorecard(4),
-  totals: Array.from(Array(4)),
+interface IState {
+  players: string[],
+  scorecard: TScorecard,
+  totals: number[],
 }
 
-function updateLocalstorage(players: string[], scorecard: number[][], totals: number[]) {
-  const state = JSON.stringify({ players, scorecard, totals})
-  localStorage.setItem(localStorageKey, state)
+interface IAction {
+  type: string,
+  payload?: any,
+}
+
+const initialState: { players: Function, scorecard: Function, totals: Function} = {
+  players: () => ['Player1', 'Player2', 'Player3', 'Player4'],
+  scorecard:() => Array.from(Array(18).keys()).map(row => {
+    return Array.from(Array(5).keys()).map(col => {
+      if (col === 0) return row+1
+      return 0
+    })
+  }),
+  totals: () => Array.from(Array(4)),
+}
+
+const reducer = (state: IState, action: IAction): IState => {
+  switch(action.type) {
+    case 'UPDATE_PLAYERS':
+      return {
+        ...state,
+        players: action.payload, 
+      }
+    case 'UPDATE_SCORECARD':
+      return {
+        ...state,
+        scorecard: action.payload.scorecard,
+        totals: action.payload.totals,
+      }
+    case 'CLEAR_STATE':
+      return {
+        players: initialState.players(),
+        scorecard: initialState.scorecard(),
+        totals: initialState.totals(),
+      }
+    default:
+      return state
+  }
 }
 
 export default function GolfScorecard() {
   const [loading, setLoading] = useState(true)
   const [showScore, setShowScore] = useState(false)
-  const [players, setPlayers] = useState(initialState.players)
-  const [scorecard, setScorecard] = useState(initialState.scorecard)
-  const [totals, setTotals] = useState(initialState.totals)
+  const [state, dispatch] = useReducer(reducer, {
+    players: initialState.players(),
+    scorecard: initialState.scorecard(),
+    totals: initialState.totals(),
+  })
 
   useEffect(() => {
-    const localStateJson = localStorage.getItem(localStorageKey)
-
-    if (localStateJson) {
-      const localState = JSON.parse(localStateJson) 
-
-      setPlayers(localState.players)
-      setScorecard(localState.scorecard)
-      setTotals(localState.totals)
-    }
-
     setLoading(false)
   }, [])
 
-  function onAddScore(e: React.ChangeEvent<HTMLInputElement>, hole: number, player: number) {
+  const onAddScore = (e: React.ChangeEvent<HTMLInputElement>, hole: number, player: number) => {
     const score = e.currentTarget.value.replace(/\D/g, '')
-    setScorecard(addScore(score, hole, player, scorecard))
-
-    const totals = Array.from(Array(players.length).keys()).map((player) => {
-      return calculatePlayerScore(player+1, scorecard)
+    const newScorecard = [...addScore(score, hole, player, state.scorecard)]
+    const newTotals = Array.from(Array(state.players.length).keys()).map((player) => {
+      return calculatePlayerScore(player+1, newScorecard)
     })
-    setTotals(totals)
 
-    updateLocalstorage(players, scorecard, totals)
+    dispatch({ type: 'UPDATE_SCORECARD', payload: { scorecard: newScorecard, totals: newTotals } })
   }
 
-  function onEnterPlayerName(e: React.ChangeEvent<HTMLInputElement>, playerIndex: number) {
-    players[playerIndex] = e.currentTarget.value
-    setPlayers(players) 
+  const onEnterPlayerName = (e: React.ChangeEvent<HTMLInputElement>, playerIndex: number) => {
+    const newPlayers = [...state.players]
+    newPlayers[playerIndex] = e.currentTarget.value
 
-    updateLocalstorage(players, scorecard, totals)
+    dispatch({ type: 'UPDATE_PLAYERS', payload: newPlayers })
   }
 
-  function clearBoard() {
-    localStorage.removeItem(localStorageKey)
-
-    setPlayers(initialState.players)
-    setScorecard(initialState.scorecard)
-    setTotals(initialState.totals)
+  const clearBoard = () => {
+    dispatch({ type: 'CLEAR_STATE' })
   }
 
   if (loading) return (<p className='text-center'>loading...</p>)
-  
+
   return (
     <div className='flex flex-col items-center'>
       <Table aria-label='Golf scorecard'>
-        <TableHeader className='hidden'>
+        <TableHeader className='hidden'>  
           <Column isRowHeader>Hole</Column>
-          {Array.from(Array(players.length).keys()).map(c => (
+          {state.players.map((c: string) => (
             <Column key={'header'+c}>Name</Column>
           ))}
         </TableHeader>
         <TableBody>
           <Row key='column-names'>
             <Cell className='w-12 font-bold text-center'><span>Hole</span></Cell>
-            {players.map((p, i) => (
-              <Cell key={p} className='font-bold border-solid border-l-2 border-primary-gray'>
+            { state.players.map((p: string, i: number) => (
+              <Cell key={p+i} className='font-bold border-solid border-l-2 border-primary-gray'>
                 <TextField defaultValue={p}>
                   <Label hidden>Player name</Label>
                   <Input onChange={(e) => onEnterPlayerName(e, i)} className='bg-transparent w-16 text-center text-dark-green'/>
@@ -89,38 +112,11 @@ export default function GolfScorecard() {
               </Cell>
             ))}
           </Row>
-          { scorecard.map((row, rowIndex) => {
-            const hole = rowIndex+1
-            return (
-              <Row key={'hole'+hole} className='border-solid border-t-2 border-primary-gray'>
-                {row.map((col, i) => {
-                  if (i === 0) {
-                    return (
-                      <Cell key={'hole'+hole+'scores'} className='text-center'>{col}</Cell>
-                    )
-                  }
-                  
-                  return (
-                    <Cell key={'h'+hole+'p'+i+'-score'} className='border-solid border-l-2 border-primary-gray'>
-                      <TextField>
-                        <Label hidden>player score for hole {row[0]}</Label>
-                        <Input 
-                          inputMode='numeric' 
-                          className='bg-transparent w-16 px-2 text-center text-dark-green'
-                          value={scorecard[rowIndex][i] || ''}
-                          onChange={(e) => onAddScore(e,hole,i)}
-                        />
-                      </TextField>
-                    </Cell>
-                  )
-                })}
-              </Row>
-            )
-          })}
+          <ScorecardRows scorecard={state.scorecard} onAddScore={onAddScore} />
           { showScore && (
             <Row key='totals' className='border-solid border-t-2 border-primary-gray'>
               <Cell key='total-label' className='font-bold text-center'><span>Total</span></Cell>
-              { totals.map((col, i) => (
+              { state.totals.map((col: number, i: number) => (
                 <Cell key={'p'+i+'total'} className='font-bold text-center border-solid border-l-2 border-primary-gray'>{col || 0}</Cell>
               ))}
             </Row>
@@ -130,8 +126,8 @@ export default function GolfScorecard() {
       
       <div className='flex flex-row justify-items-start items-start justify-center p-2'>
         { showScore
-          ? (<Button onPress={() => setShowScore(false)} className='inline-block bg-dark-green text-white py-1 px-3 font-bold rounded-md mr-3'>Hide Score</Button>)
-          : (<Button onPress={() => setShowScore(true)} className='inline-block bg-dark-green text-white py-1 px-3 font-bold rounded-md mr-3'>Reveal Score</Button>)
+          ? <Button onPress={() => setShowScore(false)} className='inline-block bg-dark-green text-white py-1 px-3 font-bold rounded-md mr-3'>Hide Score</Button>
+          : <RevealWinner players={state.players} totals={state.totals} onClose={() => setShowScore(true)} />
         }
         <ClearButton onAccept={clearBoard} />
       </div>
