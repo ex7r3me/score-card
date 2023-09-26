@@ -82,6 +82,8 @@ export default function GolfScorecard() {
 
   const clearBoard = () => {
     dispatch({ type: 'CLEAR_STATE' })
+    
+    if (showScore) setShowScore(false)
   }
 
   if (loading) return (<p className='text-center'>loading...</p>)
