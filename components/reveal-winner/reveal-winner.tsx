@@ -16,12 +16,15 @@ export default function RevealWinner(
       score: totals[i],
     }
   })
+
   playerScores.sort((a, b) => (a.score > b.score ? 1 : -1))
 
   const close = () => {
     if (onClose) onClose()
     setIsOpen(false)
   }
+
+  const hasScores = playerScores.reduce((acc, curr) => acc += curr.score || 0, 0) > 0
 
   return (
     <>
@@ -31,21 +34,33 @@ export default function RevealWinner(
 
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className='fixed z-30 inset-0 flex items-center justify-center'>
         <Dialog.Panel className='bg-light-green p-4 rounded-2xl flex flex-col items-center '>
-          <Dialog.Title className='text-3xl font-bold'>And the winner is!</Dialog.Title>
-          <TrophyIcon className='w-20 h-20 mt-2 mb-2' />
-          <ol className='mb-4 flex flex-col items-center'>
-            { playerScores.map((player, i) => {
-              let classnames = ''
-              
-              if (i === 0) classnames = 'text-3xl font-bold'
+          { hasScores && (
+            <>
+              <Dialog.Title className='text-3xl font-bold'>And the winner is!</Dialog.Title>  
+              <TrophyIcon className='w-20 h-20 mt-2 mb-2' />
+              <ol className='mb-4 flex flex-col items-center'>
+                { playerScores.map((player, i) => {
+                  let classnames = ''
 
-              return (
-                <li key={player.name+player.score}className={classnames}>
-                  {player.name + ' ' + player.score  + 'p'}
-                </li>
-              )
-            })}
-          </ol>
+                  if (i === 0) classnames = 'text-3xl font-bold'
+
+                  return (
+                    <li key={player.name+player.score}className={classnames}>
+                      {player.name + ' ' + player.score  + 'p'}
+                    </li>
+                  )
+                })}
+              </ol>
+            </>
+          )}
+          { !hasScores && (
+            <>
+              <Dialog.Title className='text-3xl font-bold'>Cant find any scores</Dialog.Title>  
+              <Dialog.Description className='p-4'>
+                You need to add some scores to the board to calculate who won.
+              </Dialog.Description>
+            </>
+          )}
           <div>
             <Button onPress={() => close()} className='bg-accent-gray text-white py-1 px-3 font-bold rounded-md'>Close</Button>
           </div>
