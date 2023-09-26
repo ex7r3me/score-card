@@ -24,8 +24,9 @@ export default function RevealWinner(
     setIsOpen(false)
   }
 
-  const hasScores = playerScores.reduce((acc, curr) => acc += curr.score || 0, 0) > 0
-
+  const hasScores = playerScores.reduce((total, p) => total += p.score || 0, 0) > 0
+  const tiedWinners = playerScores.filter(p => p.score === playerScores[0].score)
+  
   return (
     <>
       <Button onPress={() => setIsOpen(true)} className='inline-block bg-dark-green text-white py-1 px-3 font-bold rounded-md mr-3'>Reveal winner</Button>
@@ -36,17 +37,17 @@ export default function RevealWinner(
         <Dialog.Panel className='bg-light-green p-4 rounded-2xl flex flex-col items-center '>
           { hasScores && (
             <>
-              <Dialog.Title className='text-3xl font-bold'>And the winner is!</Dialog.Title>  
-              <TrophyIcon className='w-20 h-20 mt-2 mb-2' />
+              <Dialog.Title className='text-3xl font-bold'>And the {tiedWinners.length > 1 ? 'winners are!' : 'winner is!'}</Dialog.Title>  
+              <TrophyIcon className='w-20 h-20 mt-4 mb-4' />
               <ol className='mb-4 flex flex-col items-center'>
                 { playerScores.map((player, i) => {
                   let classnames = ''
 
-                  if (i === 0) classnames = 'text-3xl font-bold'
+                  if (i === 0 || tiedWinners.includes(player)) classnames = 'text-2xl font-bold mb-2'
 
                   return (
                     <li key={player.name+player.score}className={classnames}>
-                      {player.name + ' ' + player.score  + 'p'}
+                      {player.name + ' with ' + player.score  + 'p'}
                     </li>
                   )
                 })}
