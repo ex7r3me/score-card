@@ -36,7 +36,9 @@ export default function RevealWinner(
           <ol className='mb-4 flex flex-col items-center'>
             { playerScores.map((player, i) => {
               let classnames = ''
+              
               if (i === 0) classnames = 'text-3xl font-bold'
+
               return (
                 <li key={player.name+player.score}className={classnames}>
                   {player.name + ' ' + player.score  + 'p'}
