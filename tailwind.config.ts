@@ -21,6 +21,15 @@ const config: Config = {
         "light-green": "#7EE081",
         "beige": "#FCF5EE",
         "white": "#FFFFFF"
+      },
+      keyframes: {
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-2deg)'},
+          '50%': { transform: 'rotate(2deg)' },
+        }
+      },
+      animation: {
+        wiggle: 'wiggle 1s ease-in-out infinite',
       }
     },
   },

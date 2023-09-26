@@ -38,7 +38,7 @@ export default function RevealWinner(
           { hasScores && (
             <>
               <Dialog.Title className='text-3xl font-bold'>And the {tiedWinners.length > 1 ? 'winners are!' : 'winner is!'}</Dialog.Title>  
-              <TrophyIcon className='w-20 h-20 mt-4 mb-4' />
+              <TrophyIcon className='w-20 h-20 mt-4 mb-4 animate-wiggle' />
               <ol className='mb-4 flex flex-col items-center'>
                 { playerScores.map((player, i) => {
                   let classnames = ''

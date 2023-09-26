@@ -27,27 +27,29 @@ const initialState: { players: Function, scorecard: Function, totals: Function} 
 }
 
 const reducer = (state: IState, action: IAction): IState => {
+  let newState = {...state}
+
   switch(action.type) {
     case 'UPDATE_PLAYERS':
-      return {
-        ...state,
-        players: action.payload, 
-      }
+      newState.players = action.payload
+    break
     case 'UPDATE_SCORECARD':
-      return {
-        ...state,
-        scorecard: action.payload.scorecard,
-        totals: action.payload.totals,
-      }
+      newState.scorecard = action.payload.scorecard
+      newState.totals =action.payload.totals
+    break
     case 'CLEAR_STATE':
-      return {
+      newState = {
         players: initialState.players(),
         scorecard: initialState.scorecard(),
         totals: initialState.totals(),
       }
-    default:
-      return state
+    break
   }
+  
+  const stateJson = JSON.stringify(newState)
+  localStorage.setItem(localStorageKey, stateJson)
+
+  return newState
 }
 
 export default function GolfScorecard() {
@@ -60,6 +62,18 @@ export default function GolfScorecard() {
   })
 
   useEffect(() => {
+    const localStateJson = localStorage.getItem(localStorageKey)
+
+    if (localStateJson) {
+      const localState = JSON.parse(localStateJson)
+
+      dispatch({ type: 'UPDATE_PLAYERS', payload: localState.players})
+      dispatch({ 
+        type: 'UPDATE_SCORECARD', 
+        payload: { scorecard: localState.scorecard, totals: localState.totals },
+      })
+    }
+
     setLoading(false)
   }, [])
 
