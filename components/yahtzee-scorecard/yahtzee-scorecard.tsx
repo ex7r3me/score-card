@@ -14,19 +14,23 @@ export default function YahtzeeScorecard() {
 
   const numCols = 4;
 
-  // Initialize state for the scores using a dynamic array
   const initialScores = (length: number) => Array.from({ length }, () =>
     Array.from({ length: numCols }, () => 0)
   );
-
+  const initialPlayers = () => {
+    return ['Player1', 'Player2', 'Player3', 'Player4']
+  }
   const [upperScores, setUpperScores] = useState(initialScores(upperRowsNum));
   const [lowerScores, setLowerScores] = useState(initialScores(lowerRowsNum));
+  const [playerNames, setPlayerNames] = useState(initialPlayers());
 
   const clearBoard = () => {
     setUpperScores(initialScores(upperRowsNum))
     setLowerScores(initialScores(lowerRowsNum))
+    setPlayerNames(initialPlayers())
     localStorage.removeItem('yahtzee-scores-upper')
     localStorage.removeItem('yahtzee-scores-lower')
+    localStorage.removeItem('players')
   }
   const calculateGrandTotal = (colIndex: number) => {
     return upperScores.reduce((acc, row) => acc + row[colIndex], 0) + lowerScores.reduce((acc, row) => acc + row[colIndex], 0)
@@ -34,27 +38,37 @@ export default function YahtzeeScorecard() {
 
   const calculateTotal = (colIndex: number, scores: any[]) => {
     return scores.reduce((acc, row) => acc + row[colIndex], 0);
-  };
+  }
   const handleScoreChange = (rowIndex: number, colIndex: number, value: string, scores: number[][], setScores: { (value: SetStateAction<number[][]>): void; (value: SetStateAction<number[][]>): void; (arg0: any[]): void; }) => {
     const numberValue = value.replace(/\D/g, "")
     const newScores = [...scores];
     newScores[rowIndex][colIndex] = Number(numberValue);
     setScores(newScores);
-    localStorage.setItem('yahtzee-scores-upper', JSON.stringify(upperScores));
-    localStorage.setItem('yahtzee-scores-lower', JSON.stringify(lowerScores));
+    localStorage.setItem('yahtzee-scores-upper', JSON.stringify(upperScores))
+    localStorage.setItem('yahtzee-scores-lower', JSON.stringify(lowerScores))
   };
-
+  const handlePlayerChange = (index: number, value: string) => {
+    const updatedPlayerName = playerNames.map((v, i) => {
+      if (index === i) return value
+      return v
+    })
+    setPlayerNames(updatedPlayerName)
+    localStorage.setItem('players', JSON.stringify(updatedPlayerName))
+  }
   useEffect(() => {
     try {
       const upperScoresLoaded = JSON.parse(localStorage.getItem('yahtzee-scores-upper') as string) || initialScores(upperRowsNum)
       const lowerScoresLoaded = JSON.parse(localStorage.getItem('yahtzee-scores-lower') as string) || initialScores(lowerRowsNum)
+      const playerNames = JSON.parse(localStorage.getItem('players') as string) || initialPlayers()
+      if (playerNames) setPlayerNames(playerNames)
       if (upperScoresLoaded && lowerScoresLoaded) {
         setUpperScores(upperScoresLoaded);
         setLowerScores(lowerScoresLoaded)
       }
-    } catch(e){
-      setUpperScores(initialScores(upperRowsNum));
+    } catch (e) {
+      setUpperScores(initialScores(upperRowsNum))
       setLowerScores(initialScores(lowerRowsNum))
+      setPlayerNames(initialPlayers())
     }
   }, []);
   return (
@@ -69,10 +83,26 @@ export default function YahtzeeScorecard() {
         <TableBody className="text-center text-primary-gray">
           <Row className="text-center border-b border-primary-gray" >
             <Cell className="font-bold" >Upper</Cell>
-            <Cell className="border-l border-primary-gray"><TableInput /></Cell>
-            <Cell className="border-l border-primary-gray"><TableInput /></Cell>
-            <Cell className="border-l border-primary-gray"><TableInput /></Cell>
-            <Cell className="border-l border-primary-gray"><TableInput /></Cell>
+            <Cell className="border-l border-primary-gray">
+              <TableInput
+                value={playerNames[0]}
+                onChange={(e) => handlePlayerChange(0, e.target.value)}
+              /></Cell>
+            <Cell className="border-l border-primary-gray">
+              <TableInput
+                value={playerNames[1]}
+                onChange={(e) => handlePlayerChange(1, e.target.value)}
+              /></Cell>
+            <Cell className="border-l border-primary-gray">
+              <TableInput
+                value={playerNames[2]}
+                onChange={(e) => handlePlayerChange(2, e.target.value)}
+              /></Cell>
+            <Cell className="border-l border-primary-gray">
+              <TableInput
+                value={playerNames[3]}
+                onChange={(e) => handlePlayerChange(3, e.target.value)}
+              /></Cell>
           </Row>
           {upperScores.map((row, rowIndex) => (
             <Row className="border-b border-primary-gray" key={rowIndex}>
@@ -90,7 +120,7 @@ export default function YahtzeeScorecard() {
           <Row className="border-b border-primary-gray">
             <Cell><span>Total</span></Cell>
             {Array.from({ length: numCols }).map((_, colIndex) => (
-              <Cell className="border-l border-primary-gray" key={colIndex}>{calculateTotal(colIndex, upperScores)}</Cell>
+              <Cell className="border-l border-primary-gray" key={colIndex}>{calculateTotal(colIndex, upperScores) || ''}</Cell>
             ))}
           </Row>
           <Row className="font-bold">
@@ -117,13 +147,13 @@ export default function YahtzeeScorecard() {
           <Row className="border-b border-primary-gray">
             <Cell ><span>Total</span></Cell>
             {Array.from({ length: numCols }).map((_, colIndex) => (
-              <Cell className="border-l border-primary-gray" key={colIndex}>{calculateTotal(colIndex, lowerScores)}</Cell>
+              <Cell className="border-l border-primary-gray" key={colIndex}>{calculateTotal(colIndex, lowerScores) || ''}</Cell>
             ))}
           </Row>
           <Row className="border-b border-primary-gray">
             <Cell ><span>Grand Total</span></Cell>
             {Array.from({ length: numCols }).map((_, colIndex) => (
-              <Cell className="border-l border-primary-gray" key={colIndex}>{calculateGrandTotal(colIndex)}</Cell>
+              <Cell className="border-l border-primary-gray" key={colIndex}>{calculateGrandTotal(colIndex) || ''}</Cell>
             ))}
           </Row>
         </TableBody>
@@ -133,5 +163,5 @@ export default function YahtzeeScorecard() {
         <ClearButton onAccept={clearBoard} />
       </div>
     </div>
-  );
+  )
 }
