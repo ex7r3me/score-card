@@ -6,6 +6,7 @@ import Link from "next/link";
 import MainMenu from "../main-menu/main-menu";
 import { ThemeContext } from '@/context/theme-context';
 import { Button } from 'react-aria-components';
+import { MoonIcon, SunIcon } from '@heroicons/react/24/solid'
 
 export default function Navigation() {
   const [overlay, setOverlay] = useState(false);
@@ -24,8 +25,12 @@ export default function Navigation() {
         </Link>
         <div>
           { theme === 'light'
-            ? <Button onPress={() => setTheme('dark')}>dark</Button>
-            : <Button onPress={() => setTheme('light')}>Light</Button>
+            ? (<Button onPress={() => setTheme('dark')} className='p-1 mr-3 text-white rounded-md bg-accent-gray'>
+                <MoonIcon className='w-8 h-8' />
+              </Button>)
+            : (<Button onPress={() => setTheme('light')} className='p-1 mr-3 text-white rounded-md bg-accent-gray'>
+                <SunIcon className='w-8 h-8' />
+              </Button>)
           }
         </div>
       </nav>
