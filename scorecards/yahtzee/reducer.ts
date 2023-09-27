@@ -1,6 +1,5 @@
 import { RESET_BOARD, UPDATE_PLAYER_NAMES, UPDATE_SCORE, initialLowerScores, initialPlayers, initialUpperScores } from "@/scorecards/yahtzee";
 
-// Reducer function to handle state updates
 export const scorecardReducer = (state: any, action: any) => {
   switch (action.type) {
     case UPDATE_PLAYER_NAMES:
