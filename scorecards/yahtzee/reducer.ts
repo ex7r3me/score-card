@@ -1,15 +1,16 @@
-import { RESET_BOARD, UPDATE_LOWER_SCORES, UPDATE_PLAYER_NAMES, UPDATE_SCORE, UPDATE_UPPER_SCORES, initialLowerScores, initialPlayers, initialUpperScores } from "@/scorecards/yahtzee";
+import { RESET_BOARD, UPDATE_PLAYER_NAMES, UPDATE_SCORE, initialLowerScores, initialPlayers, initialUpperScores } from "@/scorecards/yahtzee";
 
 // Reducer function to handle state updates
 export const scorecardReducer = (state: any, action: any) => {
   switch (action.type) {
-    case UPDATE_UPPER_SCORES:
-      return { ...state, upperScores: action.payload };
-    case UPDATE_LOWER_SCORES:
-      return { ...state, lowerScores: action.payload };
     case UPDATE_PLAYER_NAMES:
       const { index, playerName } = action.payload
-      const updatedPlayerName = state.playerNames.map((v: string, i: number) => (index === i ? playerName : v));
+      const updatedPlayerName = state.playerNames.map((currentName: string, currentIndex: number) => {
+        if (currentIndex === index) {
+          return playerName;
+        }
+        return currentName;
+      });
       return { ...state, playerNames: updatedPlayerName };
     case UPDATE_SCORE:
       const { rowIndex, colIndex, value, scoresType } = action.payload;

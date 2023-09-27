@@ -1,12 +1,12 @@
 'use client'
 
-import { RESET_BOARD, UPDATE_PLAYER_NAMES, UPDATE_SCORE, loadStateFromStorage, saveStateToStorage } from "@/scorecards/yahtzee";
+import { RESET_BOARD, UPDATE_PLAYER_NAMES, UPDATE_SCORE, loadStateFromStorage, saveStateToStorage } from '@/scorecards/yahtzee';
 import { useEffect, useReducer } from 'react';
 
 import { Button } from 'react-aria-components';
 import ClearButton from '@/components/clear-button/clear-button';
 import YahtzeeTableLayout from './table/layout';
-import { scorecardReducer } from './yahtzee-reducer';
+import { scorecardReducer } from '../../scorecards/yahtzee/reducer';
 
 export default function YahtzeeScorecard() {
   const playersCount = 4;
