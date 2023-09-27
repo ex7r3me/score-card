@@ -7,6 +7,7 @@ import { YAHTZEE_LOWER_ROWS, YAHTZEE_UPPER_ROWS, calculateGrandTotal, calculateT
 import { YahtzeeTableHeader, YahtzeeTablePlayers, YahtzeeTableScores, YahtzeeTableTitleRow, YahtzeeTableTotal } from './table';
 
 import ClearButton from '@/components/clear-button/clear-button';
+import YahtzeeTableLayout from './table/layout';
 import { scorecardReducer } from './yahtzee-reducer';
 
 export default function YahtzeeScorecard() {
@@ -53,39 +54,11 @@ export default function YahtzeeScorecard() {
 
   return (
     <div className="flex flex-col justify-center">
-      <Table className="self-center table-auto " aria-label="Yahtzee Scores Board">
-        <YahtzeeTableHeader columns={playersCount} />
-        <TableBody className="text-center text-primary-gray">
-          <YahtzeeTablePlayers playerNames={state.playerNames} onChange={handlePlayerChange} />
-          <YahtzeeTableScores
-            rows={YAHTZEE_UPPER_ROWS}
-            scores={state.upperScores}
-            onChange={(e, rowIndex, colIndex) =>
-              handleScoreChange(rowIndex, colIndex, e.target.value, 'upperScores')
-            }
-          />
-          <YahtzeeTableTotal columns={playersCount} calculator={calculateTotal} scores={state.upperScores} />
-          <YahtzeeTableTitleRow />
-          <YahtzeeTableScores
-            rows={YAHTZEE_LOWER_ROWS}
-            scores={state.lowerScores}
-            onChange={(e, rowIndex, colIndex) =>
-              handleScoreChange(rowIndex, colIndex, e.target.value, 'lowerScores')
-            }
-          />
-          <YahtzeeTableTotal columns={playersCount} calculator={calculateTotal} scores={state.lowerScores} />
-          <Row className="border-b border-primary-gray">
-            <Cell>
-              <span>Grand Total</span>
-            </Cell>
-            {Array.from({ length: playersCount }).map((_, colIndex) => (
-              <Cell className="border-l border-primary-gray" key={colIndex}>
-                {calculateGrandTotal(colIndex, state.upperScores, state.lowerScores) || ''}
-              </Cell>
-            ))}
-          </Row>
-        </TableBody>
-      </Table>
+      <YahtzeeTableLayout
+        playersCount={playersCount}
+        state={state}
+        handlePlayerChange={handlePlayerChange}
+        handleScoreChange={handleScoreChange} />
       <div className="flex flex-row justify-items-start items-start justify-center p-2">
         <Button onPress={() => { }} className="inline-block bg-dark-green text-white py-1 px-3 font-bold rounded-md mr-3">
           Reveal Score
