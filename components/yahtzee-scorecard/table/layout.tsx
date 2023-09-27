@@ -5,13 +5,12 @@ import { YahtzeeTableHeader, YahtzeeTablePlayers, YahtzeeTableScores, YahtzeeTab
 interface YahtzeeTableLayoutProps {
     playersCount: number
     state: any
-    handlePlayerChange: (index: number ,value: string)=> void
-    handleScoreChange: (arg0: number,arg1: number,arg2: string,arg3: string)=> void
+    handlePlayerChange: (index: number, value: string) => void
+    handleScoreChange: (rowIndex: number, colIndex: number, value: string, scoresType: string) => void
 }
 
-
 export default function YahtzeeTableLayout({ playersCount, state, handlePlayerChange, handleScoreChange }: YahtzeeTableLayoutProps) {
-    return ( <Table className="self-center table-auto " aria-label="Yahtzee Scores Board">
+    return (<Table className="self-center table-auto " aria-label="Yahtzee Scores Board">
         <YahtzeeTableHeader columns={playersCount} />
         <TableBody className="text-center text-primary-gray">
             <YahtzeeTablePlayers playerNames={state.playerNames} onChange={handlePlayerChange} />
