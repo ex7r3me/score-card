@@ -7,6 +7,25 @@ export const UPDATE_LOWER_SCORES = 'UPDATE_LOWER_SCORES';
 export const UPDATE_PLAYER_NAMES = 'UPDATE_PLAYER_NAMES';
 export const UPDATE_SCORE = 'UPDATE_SCORE';
 
+export const clearLocalStorage = () => {
+    localStorage.removeItem('yahtzee-scores-upper');
+    localStorage.removeItem('yahtzee-scores-lower');
+    localStorage.removeItem('players');
+
+}
+export const loadFromLocalStorage = (key, defaultValue) => {
+    const value = localStorage.getItem(key);
+    if (value === null) {
+      console.error(`No data found for key: ${key}`);
+      return defaultValue;
+    }
+    try {
+      return JSON.parse(value);
+    } catch (error) {
+      console.error(`Error parsing ${key} from localStorage:`, error);
+      return defaultValue;
+    }
+  };
 
 const initialPlayers = () => {
     return ['Player1', 'Player2', 'Player3', 'Player4']
