@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, createContext, useState, useEffect } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 
 type ThemeContextType = 'light' | 'dark' 
 
