@@ -3,15 +3,15 @@
 import { useEffect, useRef, useContext } from 'react'
 import { usePathname } from 'next/navigation'
 import { Canvas } from "@react-three/fiber"
-import { CameraControls, Environment } from "@react-three/drei"
+import { CameraControls } from "@react-three/drei"
 import { Suspense } from "react"
 import GolfWorld from '@/components/golf-world/golf-world'
 import StreetLight from '@/components/street-light/street-light'
-import { ThemeProvider, ThemeContext } from '@/context/theme-context'
+import { ThemeContext } from '@/context/theme-context'
 
 const MainScene = () => {
   const pathname = usePathname()
-  const cameraControlsRef = useRef()
+  const cameraControlsRef: any = useRef() // Todo: find a way to type this correctly
   const { theme } = useContext(ThemeContext)
   
   useEffect(() => {
