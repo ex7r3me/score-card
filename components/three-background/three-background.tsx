@@ -33,7 +33,6 @@ const MainScene = () => {
 
   return (
     <>
-      {/* <Environment preset='night' background blur={0.2} /> */}
       <ambientLight visible={true} intensity={theme === 'light' ? 1 : 0.3} />
       <GolfWorld position={[0, -1.8, 0]} />
       <StreetLight on={theme === 'dark'} position={[1.1, -1, 1.1]} scale={0.15} rotation={[0, 2, 0]} />
@@ -50,7 +49,7 @@ export default function ThreeBackground() {
     : 'bg-gradient-to-b from-black via-stone-700 via-stone-800 to-emerald-950'
   
   return (    
-    <div className={'fixed z-0 top-0 left-0 w-full h-full '+themeClassnames}>
+    <div className={'fixed z-0 top-0 left-0 w-full h-full transition '+themeClassnames}>
       <Canvas camera={{ position: [0, 20, -4], fov: 60 }} shadows>
         <Suspense fallback={null}>
           <MainScene />
