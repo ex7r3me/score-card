@@ -3,7 +3,6 @@ import { initialLowerScores, initialPlayers, initialUpperScores } from "./initia
 export const loadFromLocalStorage = (key: string, defaultValue: string[] | number[][]) => {
     const value = localStorage.getItem(key);
     if (value === null) {
-      console.error(`No data found for key: ${key}`);
       return defaultValue;
     }
     try {
