@@ -7,6 +7,7 @@ import * as THREE from 'three'
 import React, { useRef } from 'react'
 import { useGLTF, SpotLight, useHelper } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import { GroupProps } from '@react-three/fiber'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -21,7 +22,12 @@ type GLTFResult = GLTF & {
 
 type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
 
-const StreetLight = ({on, ...props}: {on: boolean, props: JSX.IntrinsicElements['group']}) => {
+interface StreetLightProps extends GroupProps {
+  on?: boolean
+}
+
+
+const StreetLight = (props: StreetLightProps) => {
   const { nodes, materials } = useGLTF('/street-light.glb') as GLTFResult
   const downLight: any = useRef()
   const upLight: any = useRef()
@@ -30,7 +36,7 @@ const StreetLight = ({on, ...props}: {on: boolean, props: JSX.IntrinsicElements[
     <group {...props} dispose={null}>
       <mesh castShadow geometry={nodes.Cube.geometry} material={materials.Material} />
       <mesh geometry={nodes.Sphere.geometry} material={materials['Material.001']} position={[1.791, 5.477, 0]} scale={0.267} />
-      { on && (
+      { props.on && (
         <>
           <SpotLight ref={downLight} castShadow position={[1.791, 5.2, 0]} angle={Math.PI / 4 } distance={6} intensity={0.4} target-position={[0, -180, 0]} />
           <SpotLight ref={upLight} castShadow position={[1.791, 5, 0]} angle={Math.PI / 4} distance={0.1} intensity={0.3} target-position={[0, 180, 0]} />
