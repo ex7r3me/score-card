@@ -7,18 +7,18 @@ const ScorecardRows = ({ scorecard, onAddScore }: { scorecard: TScorecard, onAdd
       { scorecard.map((row: number[], rowIndex: number) => {
         const hole = rowIndex+1
         return (
-          <Row key={'hole'+hole} className='border-solid border-t-2 border-primary-gray'>
+          <Row key={`hole${hole}`} className='border-solid border-t-2 border-primary-gray'>
             {row.map((col: number, i: number) => {
               if (i === 0) {
                 return (
-                  <Cell key={'hole'+hole+'scores'} className='text-center'>{col}</Cell>
+                  <Cell key={`hole${hole}scores`} className='text-center'>{col}</Cell>
                 )
               }
               
               return (
-                <Cell key={'h'+hole+'p'+i+'-score'} className='border-solid border-l-2 border-primary-gray'>
+                <Cell key={`'hole${hole}player${i}score`} className='border-solid border-l-2 border-primary-gray'>
                   <TextField>
-                    <Label hidden>player score for hole {row[0]}</Label>
+                    <Label hidden>{`player score for hole ${row[0]}`}</Label>
                     <Input 
                       inputMode='numeric' 
                       className='bg-transparent w-16 px-2 text-center text-dark-green'

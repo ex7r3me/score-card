@@ -49,7 +49,7 @@ export default function ThreeBackground() {
     : 'bg-gradient-to-b from-black via-stone-700 via-stone-800 to-emerald-950'
   
   return (    
-    <div className={'fixed z-0 top-0 left-0 w-full h-full transition '+themeClassnames}>
+    <div className={`fixed z-0 top-0 left-0 w-full h-full transition ${themeClassnames}`}>
       <Canvas camera={{ position: [0, 20, -4], fov: 60 }} shadows>
         <Suspense fallback={null}>
           <MainScene />

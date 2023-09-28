@@ -108,7 +108,7 @@ export default function GolfScorecard() {
         <TableHeader className='hidden'>  
           <Column isRowHeader>Hole</Column>
           {state.players.map((c: string) => (
-            <Column key={'header'+c}>Name</Column>
+            <Column key={`header${c}`}>Name</Column>
           ))}
         </TableHeader>
         <TableBody>
@@ -128,7 +128,7 @@ export default function GolfScorecard() {
             <Row key='totals' className='border-solid border-t-2 border-primary-gray'>
               <Cell key='total-label' className='font-bold text-center'><span>Total</span></Cell>
               { state.totals.map((col: number, i: number) => (
-                <Cell key={'p'+i+'total'} className='font-bold text-center border-solid border-l-2 border-primary-gray'>{col || 0}</Cell>
+                <Cell key={`p${i}total`} className='font-bold text-center border-solid border-l-2 border-primary-gray'>{col || 0}</Cell>
               ))}
             </Row>
           )}
