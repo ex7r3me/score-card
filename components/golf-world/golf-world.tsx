@@ -54,7 +54,7 @@ type GLTFResult = GLTF & {
 type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
 
 const GolfWorld = (props: JSX.IntrinsicElements['group']) => {
-  const { nodes, materials } = useGLTF('/golf.glb') as GLTFResult
+  const { nodes, materials } = useGLTF('/models/golf.glb') as GLTFResult
   return (
     <group {...props} dispose={null}>
       <group rotation={[-Math.PI, 0, -Math.PI]} scale={[-3, -0.313, -3]}>

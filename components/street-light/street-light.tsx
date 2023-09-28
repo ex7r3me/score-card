@@ -28,7 +28,7 @@ interface StreetLightProps extends GroupProps {
 
 
 const StreetLight = (props: StreetLightProps) => {
-  const { nodes, materials } = useGLTF('/street-light.glb') as GLTFResult
+  const { nodes, materials } = useGLTF('/models/street-light.glb') as GLTFResult
   const downLight: any = useRef()
   const upLight: any = useRef()
 
