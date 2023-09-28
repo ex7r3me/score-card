@@ -5,7 +5,7 @@ Command: npx gltfjsx@6.2.13 public/street-light.glb -t
 
 import * as THREE from 'three'
 import React, { useRef } from 'react'
-import { useGLTF, SpotLight, useHelper } from '@react-three/drei'
+import { useGLTF, SpotLight } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { GroupProps } from '@react-three/fiber'
 
