@@ -12,6 +12,7 @@ export default function YahtzeeScorecard() {
   const playersCount = 4;
   const initialState = { ...loadStateFromStorage(playersCount) };
 
+  const [loading, setLoading] = useState(true)
   const [state, dispatch] = useReducer(scorecardReducer, initialState);
   const [showTotal, setShowTotal] = useState(false)
 
@@ -31,7 +32,10 @@ export default function YahtzeeScorecard() {
     saveStateToStorage(state)
   }, [state]);
 
-
+  useEffect(() => {
+    setLoading(false)
+  })
+  if (loading) return (<p className='text-center'>loading...</p>)
   return (
     <div className="flex flex-col justify-center">
       <YahtzeeTableLayout
