@@ -1,9 +1,9 @@
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid'
 import { Menu, Transition } from '@headlessui/react'
-import Link from 'next/link';
+import Link from 'next/link'
 
 interface MainMenuProps {
-  onToggle?: () => void;
+  onToggle?: () => void
 }
 
 export default function MainMenu({ onToggle }: MainMenuProps) {
