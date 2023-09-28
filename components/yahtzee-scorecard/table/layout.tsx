@@ -7,9 +7,10 @@ interface YahtzeeTableLayoutProps {
     state: any
     handlePlayerChange: (index: number, value: string) => void
     handleScoreChange: (rowIndex: number, colIndex: number, value: string, scoresType: string) => void
+    showTotal: boolean
 }
 
-export default function YahtzeeTableLayout({ playersCount, state, handlePlayerChange, handleScoreChange }: YahtzeeTableLayoutProps) {
+export default function YahtzeeTableLayout({ playersCount, state, handlePlayerChange, handleScoreChange, showTotal }: YahtzeeTableLayoutProps) {
     return (<Table className="self-center table-auto " aria-label="Yahtzee Scores Board">
         <YahtzeeTableHeader columns={playersCount} />
         <TableBody className="text-center text-primary-gray">
@@ -31,16 +32,18 @@ export default function YahtzeeTableLayout({ playersCount, state, handlePlayerCh
                 }
             />
             <YahtzeeTableTotal columns={playersCount} calculator={calculateTotal} scores={state.lowerScores} />
-            <Row className="border-b border-primary-gray">
-                <Cell>
-                    <span>Grand Total</span>
-                </Cell>
-                {Array.from({ length: playersCount }).map((_, colIndex) => (
-                    <Cell className="border-l border-primary-gray" key={colIndex}>
-                        {calculateGrandTotal(colIndex, state.upperScores, state.lowerScores) || ''}
+            {showTotal &&
+                <Row className="border-b border-primary-gray">
+                    <Cell>
+                        <span>Grand Total</span>
                     </Cell>
-                ))}
-            </Row>
+                    {Array.from({ length: playersCount }).map((_, colIndex) => (
+                        <Cell className="border-l border-primary-gray" key={colIndex}>
+                            {calculateGrandTotal(colIndex, state.upperScores, state.lowerScores) || ''}
+                        </Cell>
+                    ))}
+                </Row>
+            }
         </TableBody>
     </Table>
     )

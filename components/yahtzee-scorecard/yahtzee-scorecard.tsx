@@ -1,10 +1,11 @@
 'use client'
 
-import { RESET_BOARD, UPDATE_PLAYER_NAMES, UPDATE_SCORE, loadStateFromStorage, saveStateToStorage, scorecardReducer } from '@/scorecards/yahtzee';
-import { useEffect, useReducer } from 'react';
+import { RESET_BOARD, UPDATE_PLAYER_NAMES, UPDATE_SCORE, calculateAllGrandTotal, loadStateFromStorage, saveStateToStorage, scorecardReducer } from '@/scorecards/yahtzee';
+import { useEffect, useReducer, useState } from 'react';
 
 import { Button } from 'react-aria-components';
 import ClearButton from '@/components/clear-button/clear-button';
+import RevealWinner from '../reveal-winner/reveal-winner';
 import YahtzeeTableLayout from './table/layout';
 
 export default function YahtzeeScorecard() {
@@ -12,6 +13,7 @@ export default function YahtzeeScorecard() {
   const initialState = { ...loadStateFromStorage(playersCount) };
 
   const [state, dispatch] = useReducer(scorecardReducer, initialState);
+  const [showTotal, setShowTotal] = useState(false)
 
   const onClearBoard = () => {
     dispatch({ type: RESET_BOARD, payload: playersCount })
@@ -35,12 +37,14 @@ export default function YahtzeeScorecard() {
       <YahtzeeTableLayout
         playersCount={playersCount}
         state={state}
+        showTotal={showTotal}
         handlePlayerChange={onPlayerChange}
         handleScoreChange={onScoreChange} />
       <div className="flex flex-row justify-items-start items-start justify-center p-2">
-        <Button onPress={() => { }} className="inline-block bg-dark-green text-white py-1 px-3 font-bold rounded-md mr-3">
-          Reveal Score
-        </Button>
+        {showTotal
+          ? <Button onPress={() => setShowTotal(false)} className='inline-block bg-dark-green text-white py-1 px-3 font-bold rounded-md mr-3'>Hide Score</Button>
+          : <RevealWinner players={state.playerNames} totals={calculateAllGrandTotal(state)} gameName='yahtzee' onClose={() => setShowTotal(true)} />
+        }
         <ClearButton onAccept={onClearBoard} />
       </div>
     </div>
