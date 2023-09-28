@@ -1,4 +1,4 @@
-import { Button, Cell, Column, Row, Table, TableBody, TableHeader, TextField, Label, Input } from 'react-aria-components'
+import { Cell, Row, TextField, Label, Input } from 'react-aria-components'
 import { TScorecard } from '@/scorecards/golf'
 
 const ScorecardRows = ({ scorecard, onAddScore }: { scorecard: TScorecard, onAddScore: (e: React.ChangeEvent<HTMLInputElement>, hole: number, player: number) => void }) => {
