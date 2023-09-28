@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useContext } from 'react'
+import { useEffect, useRef, useContext, Ref, MutableRefObject } from 'react'
 import { usePathname } from 'next/navigation'
 import { Canvas } from "@react-three/fiber"
 import { CameraControls } from "@react-three/drei"
@@ -11,7 +11,7 @@ import { ThemeContext } from '@/context/theme-context'
 
 const MainScene = () => {
   const pathname = usePathname()
-  const cameraControlsRef: any = useRef() // Todo: find a way to type this correctly
+  const cameraControlsRef: any = useRef()
   const { theme } = useContext(ThemeContext)
   
   useEffect(() => {
