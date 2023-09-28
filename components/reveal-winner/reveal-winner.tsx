@@ -17,10 +17,11 @@ export default function RevealWinner(
     }
   })
 
-  if (gameName === 'golf')
+  if (gameName === 'golf') {
     playerScores.sort((a, b) => (a.score > b.score ? 1 : -1))
-  else if (gameName = 'yahtzee')
+  } else if (gameName = 'yahtzee') {
     playerScores.sort((a, b) => (a.score < b.score ? 1 : -1))
+  }
 
 
   const close = () => {
