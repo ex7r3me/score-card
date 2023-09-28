@@ -49,11 +49,7 @@ export default function RevealWinner(
 
                   if (i === 0 || tiedWinners.includes(player)) classnames = 'text-2xl font-bold mb-2'
 
-                  return (
-                    <li key={player.name + player.score} className={classnames}>
-                      {player.name + ' with ' + player.score + 'p'}
-                    </li>
-                  )
+                  return <li key={player.name + player.score} className={classnames}>{`${player.name} with ${player.score}p`}</li>
                 })}
               </ol>
             </>
