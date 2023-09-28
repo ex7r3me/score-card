@@ -48,4 +48,4 @@ const StreetLight = (props: StreetLightProps) => {
 
 export default StreetLight
 
-useGLTF.preload('/street-light.glb')
+useGLTF.preload('/models/street-light.glb')

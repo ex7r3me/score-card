@@ -111,4 +111,4 @@ const GolfWorld = (props: JSX.IntrinsicElements['group']) => {
 
 export default GolfWorld
 
-useGLTF.preload('/golf.glb')
+useGLTF.preload('/models/golf.glb')
