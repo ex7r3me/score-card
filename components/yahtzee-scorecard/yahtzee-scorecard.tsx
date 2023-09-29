@@ -34,7 +34,7 @@ export default function YahtzeeScorecard() {
 
   useEffect(() => {
     setLoading(false)
-  })
+  }, [])
   if (loading) return (<p className='text-center'>loading...</p>)
   return (
     <div className="flex flex-col justify-center">

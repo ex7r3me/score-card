@@ -7,7 +7,6 @@ export default function TableInput(props: JSX.IntrinsicAttributes & InputProps &
 
   return (
     <TextField>
-      <Label hidden>player score for hole </Label>
       <Input {...{...props, value: props.value || ''}} className='w-16 px-2 font-bold text-center bg-transparent text-dark-green' />
     </TextField>
   )
