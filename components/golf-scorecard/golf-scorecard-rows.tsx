@@ -16,9 +16,9 @@ const ScorecardRows = ({ scorecard, onAddScore }: { scorecard: TScorecard, onAdd
               }
               
               return (
-                <Cell key={`'hole${hole}player${i}score`} className='border-solid border-l-2 border-primary-gray'>
+                <Cell key={`hole${hole}player${i}score`} className='border-solid border-l-2 border-primary-gray'>
                   <TextField>
-                    <Label hidden>{`player score for hole ${row[0]}`}</Label>
+                    <Label hidden>{`player ${i} score for hole ${row[0]}`}</Label>
                     <Input 
                       inputMode='numeric' 
                       className='bg-transparent w-16 px-2 text-center text-dark-green'
