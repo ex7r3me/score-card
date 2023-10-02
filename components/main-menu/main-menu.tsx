@@ -12,7 +12,7 @@ export default function MainMenu({ onToggle }: MainMenuProps) {
       {({ open }) => (
         <>
           { open && (<div className='bg-black/70 fixed top-14 left-0 w-full h-full' aria-hidden="true" />)}
-          <Menu.Button className="relative z-10 p-1 ml-3 text-white rounded-md bg-accent-gray" >
+          <Menu.Button className="relative z-10 p-1 ml-3 text-white rounded-md bg-accent-gray" aria-label='open/close menu' >
             { open ? <XMarkIcon className="w-8 h-8" /> : <Bars3Icon className="w-8 h-8" /> }
           </Menu.Button>
           <Transition
